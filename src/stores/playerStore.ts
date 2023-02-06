@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import {
-  writeFile,
   BaseDirectory,
-  exists,
   createDir,
+  exists,
+  writeFile,
 } from "@tauri-apps/api/fs";
+
 export const usePlayerStore = defineStore("player", {
   state: () => ({
     playerDamage: 10,
@@ -18,6 +19,7 @@ export const usePlayerStore = defineStore("player", {
     avatar: {},
     playerInventory: [],
     itemStartId: 0,
+    hasSavedGame: false,
   }),
   actions: {
     async savePlayerToFile() {
@@ -46,7 +48,9 @@ export const usePlayerStore = defineStore("player", {
     },
     async checkIfFolderExists() {
       try {
-        const folderExists = await exists("tower-climber", {dir: BaseDirectory.Document});
+        const folderExists = await exists("tower-climber", {
+          dir: BaseDirectory.Document,
+        });
         if (!folderExists) {
           await createDir("tower-climber", {
             dir: BaseDirectory.Document,
@@ -56,6 +60,11 @@ export const usePlayerStore = defineStore("player", {
       } catch (e) {
         console.error(e);
       }
+    },
+    async checkIfSaveExists() {
+      this.hasSavedGame = await exists("tower-climber/playerSave.json", {
+        dir: BaseDirectory.Document,
+      });
     },
   },
 });
