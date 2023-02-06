@@ -28,6 +28,7 @@
 import { heroes } from "../helpers/playerHelper";
 import { usePlayerStore } from "../stores/playerStore";
 import {ref} from "vue";
+import router from "../router";
 
 const store = usePlayerStore();
 let heroSelected = ref(false)
@@ -39,6 +40,8 @@ function selectHero(hero: any) {
 
 function savePlayerToFile() {
   store.savePlayerToFile();
+  alert("Hero Saved")
+  router.push("/game");
 }
 </script>
 
