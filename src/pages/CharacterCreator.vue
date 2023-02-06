@@ -13,7 +13,13 @@
       </button>
     </div>
     <div class="row">
-      <button class="btn btn-primary" @click="savePlayerToFile">Start</button>
+      <button
+        class="btn btn-primary"
+        @click="savePlayerToFile"
+        :disabled="heroSelected === false"
+      >
+        Start
+      </button>
     </div>
   </div>
 </template>
@@ -21,18 +27,19 @@
 <script setup lang="ts">
 import { heroes } from "../helpers/playerHelper";
 import { usePlayerStore } from "../stores/playerStore";
+import {ref} from "vue";
 
 const store = usePlayerStore();
+let heroSelected = ref(false)
 
 function selectHero(hero: any) {
   store.avatar = hero;
-  console.log(store.avatar);
+  heroSelected.value = true;
 }
 
 function savePlayerToFile() {
   store.savePlayerToFile();
 }
-
 </script>
 
 <style>
