@@ -22,6 +22,19 @@
         <button class="btn btn-primary attack-button">Stop Battle</button>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <PlayerEquipment />
+          <div class="row">
+            <ItemShop />
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <PlayerInventory />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,6 +48,9 @@ import { useFileOperationsStore } from "../stores/fileOperationsStore";
 import { window } from "@tauri-apps/api";
 import { TauriEvent } from "@tauri-apps/api/event";
 import { appWindow } from "@tauri-apps/api/window";
+import PlayerEquipment from "../components/player/PlayerEquipment.vue";
+import ItemShop from "../components/game/ItemShop.vue";
+import PlayerInventory from "../components/player/PlayerInventory.vue";
 
 const monsterStore = useMonsterStore();
 monsterStore.setRandomMonsterAvatar();
