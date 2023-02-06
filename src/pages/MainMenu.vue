@@ -5,7 +5,13 @@
       <button class="btn btn-primary" @click="newGame">New Game</button>
     </div>
     <div class="col m-2">
-      <button class="btn btn-primary">Load Game</button>
+      <button
+        class="btn btn-primary"
+        @click="loadGame"
+        :disabled="store.hasSavedGame === false"
+      >
+        Load Game
+      </button>
     </div>
   </div>
 </template>
@@ -16,9 +22,18 @@ import { usePlayerStore } from "../stores/playerStore";
 
 const store = usePlayerStore();
 
+checkForSave();
+function checkForSave() {
+  store.checkIfSaveExists();
+}
+
 function newGame() {
   router.push("/creator");
   store.checkIfFolderExists();
+}
+
+function loadGame() {
+  router.push("/game");
 }
 </script>
 
