@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { usePlayerStore } from "../../stores/playerStore";
+import XPBar from "./XPBar.vue";
 
 const store = usePlayerStore();
 </script>
