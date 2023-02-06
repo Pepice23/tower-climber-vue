@@ -8,7 +8,7 @@
       <button
         class="btn btn-primary"
         @click="loadGame"
-        :disabled="store.hasSavedGame === false"
+        :disabled="playerStore.hasSavedGame === false"
       >
         Load Game
       </button>
@@ -18,21 +18,24 @@
 
 <script setup lang="ts">
 import router from "../router";
+import { useFileOperationsStore } from "../stores/fileOperationsStore";
 import { usePlayerStore } from "../stores/playerStore";
 
-const store = usePlayerStore();
+const playerStore = usePlayerStore();
+const fileStore = useFileOperationsStore();
 
 checkForSave();
 function checkForSave() {
-  store.checkIfSaveExists();
+  fileStore.checkIfSaveExists();
 }
 
 function newGame() {
   router.push("/creator");
-  store.checkIfFolderExists();
+  fileStore.checkIfFolderExists();
 }
 
 function loadGame() {
+  fileStore.loadPlayerFromFile();
   router.push("/game");
 }
 </script>
