@@ -12,9 +12,13 @@
 
 <script setup lang="ts">
 import router from "../router";
+import { usePlayerStore } from "../stores/playerStore";
+
+const store = usePlayerStore();
 
 function newGame() {
   router.push("/creator");
+  store.checkIfFolderExists();
 }
 </script>
 
