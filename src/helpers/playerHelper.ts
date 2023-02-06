@@ -7,3 +7,7 @@ export const heroes = [
   { picturePath: "src/assets/heroes/hero6.jpeg", name: "Hero 6" },
   { picturePath: "src/assets/heroes/hero7.jpeg", name: "Hero 7" },
 ];
+
+export function getRandomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
