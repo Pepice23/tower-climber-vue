@@ -1,13 +1,13 @@
 <template>
   <div class="col">
-    <h3>Level: {{ store.playerLevel }}</h3>
+    <h3>Level: {{ playerStore.playerLevel }}</h3>
     <img
-      :src="store.avatar.picturePath"
-      :alt="store.avatar.name"
+      :src="playerStore.avatar.picturePath"
+      :alt="playerStore.avatar.name"
       class="picture-size m-2"
     />
-    <h3>Damage: {{ store.playerDamage }}</h3>
-    <h3>Defense: {{ store.playerDefense }}</h3>
+    <h3>Damage: {{ playerStore.playerDamage }}</h3>
+    <h3>Defense: {{ playerStore.playerDefense }}</h3>
     <XPBar />
   </div>
 </template>
@@ -16,7 +16,7 @@
 import { usePlayerStore } from "../../stores/playerStore";
 import XPBar from "./XPBar.vue";
 
-const store = usePlayerStore();
+const playerStore = usePlayerStore();
 </script>
 
 <style scoped>
