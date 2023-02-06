@@ -61,7 +61,7 @@ const playerStore = usePlayerStore();
 
 window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   fileOperationsStore.savePlayerToFile();
-  // saveEquipmentToFile();
+  fileOperationsStore.saveEquipmentToFile();
   // saveInventoryToFile();
   appWindow.close();
 });

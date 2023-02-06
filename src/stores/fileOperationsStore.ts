@@ -2,10 +2,12 @@ import { defineStore } from "pinia";
 import {
   BaseDirectory,
   createDir,
-  exists, readTextFile,
+  exists,
+  readTextFile,
   writeFile,
 } from "@tauri-apps/api/fs";
 import { usePlayerStore } from "./playerStore";
+import { useEquipmentStore } from "./equipmentStore";
 
 export const useFileOperationsStore = defineStore("fileOperations", {
   state: () => ({}),
@@ -54,6 +56,58 @@ export const useFileOperationsStore = defineStore("fileOperations", {
         console.error(e);
       }
     },
+    async saveEquipmentToFile() {
+      const equipmentStore = useEquipmentStore();
+      try {
+        await writeFile(
+          "tower-climber/equipmentSave.json",
+          JSON.stringify({
+            equipment: {
+              headArmor: equipmentStore.headArmor,
+              shoulderArmor: equipmentStore.shoulderArmor,
+              chestArmor: equipmentStore.chestArmor,
+              handArmor: equipmentStore.handArmor,
+              legArmor: equipmentStore.legArmor,
+              footArmor: equipmentStore.footArmor,
+              ringArmor: equipmentStore.ring,
+              trinketArmor: equipmentStore.trinket,
+              necklaceArmor: equipmentStore.necklace,
+              weapon: equipmentStore.weapon,
+            },
+          }),
+          {
+            dir: BaseDirectory.Document,
+          }
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async loadEquipmentFromFile() {
+      const equipmentStore = useEquipmentStore();
+      try {
+        const equipment = await readTextFile(
+          "tower-climber/equipmentSave.json",
+          {
+            dir: BaseDirectory.Document,
+          }
+        );
+        const equipmentJson = JSON.parse(equipment);
+        equipmentStore.headArmor = equipmentJson.equipment.headArmor;
+        equipmentStore.shoulderArmor = equipmentJson.equipment.shoulderArmor;
+        equipmentStore.chestArmor = equipmentJson.equipment.chestArmor;
+        equipmentStore.handArmor = equipmentJson.equipment.handArmor;
+        equipmentStore.legArmor = equipmentJson.equipment.legArmor;
+        equipmentStore.footArmor = equipmentJson.equipment.footArmor;
+        equipmentStore.ring = equipmentJson.equipment.ringArmor;
+        equipmentStore.trinket = equipmentJson.equipment.trinketArmor;
+        equipmentStore.necklace = equipmentJson.equipment.necklaceArmor;
+        equipmentStore.weapon = equipmentJson.equipment.weapon;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+
     async checkIfFolderExists() {
       try {
         const folderExists = await exists("tower-climber", {

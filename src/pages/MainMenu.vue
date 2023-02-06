@@ -36,6 +36,7 @@ function newGame() {
 
 function loadGame() {
   fileStore.loadPlayerFromFile();
+  fileStore.loadEquipmentFromFile();
   router.push("/game");
 }
 </script>
