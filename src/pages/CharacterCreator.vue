@@ -4,18 +4,35 @@
   </div>
   <div class="row">
     <div class="col m-2" v-for="hero in heroes">
-      <button class="btn">
+      <button
+        class="btn"
+        @click="selectHero(hero)"
+        :class="store.avatar.name === hero.name ? 'btn-success' : ''"
+      >
         <img :src="hero.picturePath" :alt="hero.name" class="picture-size" />
       </button>
     </div>
     <div class="row">
-      <button class="btn btn-primary">Start</button>
+      <button class="btn btn-primary" @click="savePlayerToFile">Start</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { heroes } from "../helpers/playerHelper";
+import { usePlayerStore } from "../stores/playerStore";
+
+const store = usePlayerStore();
+
+function selectHero(hero: any) {
+  store.avatar = hero;
+  console.log(store.avatar);
+}
+
+function savePlayerToFile() {
+  store.savePlayerToFile();
+}
+
 </script>
 
 <style>
