@@ -7,7 +7,7 @@
       <button
         class="btn"
         @click="selectHero(hero)"
-        :class="store.avatar.name === hero.name ? 'btn-success' : ''"
+        :class="playerStore.avatar.name === hero.name ? 'btn-success' : ''"
       >
         <img :src="hero.picturePath" :alt="hero.name" class="picture-size" />
       </button>
@@ -27,20 +27,23 @@
 <script setup lang="ts">
 import { heroes } from "../helpers/playerHelper";
 import { usePlayerStore } from "../stores/playerStore";
-import {ref} from "vue";
+import { ref } from "vue";
 import router from "../router";
+import { useFileOperationsStore } from "../stores/fileOperationsStore";
 
-const store = usePlayerStore();
-let heroSelected = ref(false)
+const playerStore = usePlayerStore();
+const fileStore = useFileOperationsStore();
+
+let heroSelected = ref(false);
 
 function selectHero(hero: any) {
-  store.avatar = hero;
+  playerStore.avatar = hero;
   heroSelected.value = true;
 }
 
 function savePlayerToFile() {
-  store.savePlayerToFile();
-  alert("Hero Saved")
+  fileStore.savePlayerToFile();
+  alert("Hero Saved");
   router.push("/game");
 }
 </script>
