@@ -88,7 +88,6 @@ export function generateRandomItem(level, id) {
   item.picturePath = getRandomPicture(slot.imgPath, slot.availableImages);
   item.dmgPercent = 0;
   item.defPercent = 0;
-  id++;
 
   return item;
 }
