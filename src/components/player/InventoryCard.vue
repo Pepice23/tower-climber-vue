@@ -2,41 +2,41 @@
   <div
     class="col m-2 inventory-border"
     :class="{
-      'background-poor': item.equipmentRarity === 1,
-      'background-uncommon': item.equipmentRarity === 2,
-      'background-rare': item.equipmentRarity === 3,
-      'background-epic': item.equipmentRarity === 4,
-      'background-legendary': item.equipmentRarity === 5,
+      'background-poor': props.item.equipmentRarity === 1,
+      'background-uncommon': props.item.equipmentRarity === 2,
+      'background-rare': props.item.equipmentRarity === 3,
+      'background-epic': props.item.equipmentRarity === 4,
+      'background-legendary': props.item.equipmentRarity === 5,
     }"
   >
-    <button class="btn">
+    <button class="btn" @click="equipItem(item)">
       <div class="row text-white">
         <div class="col">
           <img
-            :src="item.picturePath"
-            :alt="item.equipmentName"
+            :src="props.item.picturePath"
+            :alt="props.item.equipmentName"
             class="picture-size m-2"
           />
         </div>
         <div class="col">
-          <h6>{{ item.equipmentName }}</h6>
-          <h6>Level:{{ item.equipmentLevel }}</h6>
-          <h6>Damage:{{ item.equipmentDamage }}</h6>
-          <h6>Defense:{{ item.equipmentDefense }}</h6>
-          <h5 class="text-success" v-if="item.dmgPercent > 0">
-            DMG Difference: {{ item.dmgPercent }}%
+          <h6>{{ props.item.equipmentName }}</h6>
+          <h6>Level:{{ props.item.equipmentLevel }}</h6>
+          <h6>Damage:{{ props.item.equipmentDamage }}</h6>
+          <h6>Defense:{{ props.item.equipmentDefense }}</h6>
+          <h5 class="text-success" v-if="props.item.dmgPercent > 0">
+            DMG Difference: {{ props.item.dmgPercent }}%
           </h5>
 
-          <h5 class="text-danger" v-if="item.dmgPercent < 0">
-            DMG Difference: {{ item.dmgPercent }}%
+          <h5 class="text-danger" v-if="props.item.dmgPercent < 0">
+            DMG Difference: {{ props.item.dmgPercent }}%
           </h5>
 
-          <h5 class="text-success" v-if="item.defPercent > 0">
-            DEF Difference: {{ item.defPercent }}%
+          <h5 class="text-success" v-if="props.item.defPercent > 0">
+            DEF Difference: {{ props.item.defPercent }}%
           </h5>
 
-          <h5 class="text-danger" v-if="item.defPercent < 0">
-            DEF Difference: {{ item.defPercent }}%
+          <h5 class="text-danger" v-if="props.item.defPercent < 0">
+            DEF Difference: {{ props.item.defPercent }}%
           </h5>
         </div>
       </div>
@@ -45,9 +45,48 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   item: Object,
 });
+import { useEquipmentStore } from "../../stores/equipmentStore.js";
+import { usePlayerStore } from "../../stores/playerStore.js";
+
+const playerStore = usePlayerStore();
+const equipmentStore = useEquipmentStore();
+
+const equipItem = (item) => {
+  if (item.equipmentSlot === 1) {
+    equipmentStore.headArmor = item;
+  }
+  if (item.equipmentSlot === 2) {
+    equipmentStore.shoulderArmor = item;
+  }
+  if (item.equipmentSlot === 3) {
+    equipmentStore.chestArmor = item;
+  }
+  if (item.equipmentSlot === 4) {
+    equipmentStore.handArmor = item;
+  }
+  if (item.equipmentSlot === 5) {
+    equipmentStore.legArmor = item;
+  }
+  if (item.equipmentSlot === 6) {
+    equipmentStore.footArmor = item;
+  }
+  if (item.equipmentSlot === 7) {
+    equipmentStore.ring = item;
+  }
+  if (item.equipmentSlot === 8) {
+    equipmentStore.trinket = item;
+  }
+  if (item.equipmentSlot === 9) {
+    equipmentStore.necklace = item;
+  }
+  if (item.equipmentSlot === 10) {
+    equipmentStore.weapon = item;
+  }
+  playerStore.equipItem(item);
+};
 </script>
 
 <style scoped>
