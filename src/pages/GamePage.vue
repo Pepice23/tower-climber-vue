@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import StageDisplay from "../components/game/StageDisplay.vue";
 import MonsterCard from "../components/game/MonsterCard.vue";
 import CharacterCard from "../components/player/CharacterCard.vue";

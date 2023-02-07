@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { usePlayerStore } from "../../stores/playerStore";
 import { useMonsterStore } from "../../stores/monsterStore";
 const playerStore = usePlayerStore();

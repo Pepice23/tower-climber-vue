@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { usePlayerStore } from "../../stores/playerStore";
 const playerStore = usePlayerStore();
 </script>

@@ -94,7 +94,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import EquipmentCard from "./EquipmentCard.vue";
 import { useEquipmentStore } from "../../stores/equipmentStore";
 const equipmentStore = useEquipmentStore();

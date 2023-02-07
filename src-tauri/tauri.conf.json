@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "tower-climber-vue-ts",
+    "productName": "tower-climber-vue",
     "version": "0.0.0"
   },
   "tauri": {
@@ -72,7 +72,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "tower-climber-vue-ts",
+        "title": "tower-climber-vue",
         "width": 800
       }
     ]

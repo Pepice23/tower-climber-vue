@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import router from "../router";
 import { useFileOperationsStore } from "../stores/fileOperationsStore";
 import { usePlayerStore } from "../stores/playerStore";

@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { heroes } from "../helpers/playerHelper";
 import { usePlayerStore } from "../stores/playerStore";
 import { ref } from "vue";
