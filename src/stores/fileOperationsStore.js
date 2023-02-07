@@ -107,6 +107,39 @@ export const useFileOperationsStore = defineStore("fileOperations", {
         console.error(e);
       }
     },
+    async saveInventoryToFile() {
+      const playerStore = usePlayerStore();
+      try {
+        await writeFile(
+          "tower-climber/inventorySave.json",
+          JSON.stringify({
+            inventory: playerStore.playerInventory,
+            itemStartId: playerStore.itemStartId,
+          }),
+          {
+            dir: BaseDirectory.Document,
+          }
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async loadInventoryFromFile() {
+      const playerStore = usePlayerStore();
+      try {
+        const inventory = await readTextFile(
+          "tower-climber/inventorySave.json",
+          {
+            dir: BaseDirectory.Document,
+          }
+        );
+        const inventoryJson = JSON.parse(inventory);
+        playerStore.playerInventory = inventoryJson.inventory;
+        playerStore.itemStartId = inventoryJson.itemStartId;
+      } catch (e) {
+        console.error(e);
+      }
+    },
 
     async checkIfFolderExists() {
       try {
