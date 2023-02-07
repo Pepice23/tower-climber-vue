@@ -9,6 +9,7 @@
             playerStore.money < 2000 ||
             playerStore.playerInventory.length === 30
           "
+          @click="buyItem"
         >
           Buy Item
         </button>
@@ -22,6 +23,10 @@
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
 const playerStore = usePlayerStore();
+
+function buyItem() {
+  playerStore.addItemToInventory();
+}
 </script>
 
 <style scoped>
