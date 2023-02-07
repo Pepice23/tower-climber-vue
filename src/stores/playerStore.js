@@ -100,5 +100,16 @@ export const usePlayerStore = defineStore("player", {
       this.totalDamage();
       this.totalDefense();
     },
+    subtractMoney(amount) {
+      this.money -= amount;
+    },
+    sellAllItem(targetRarity) {
+      this.playerInventory = this.playerInventory.filter((item) => {
+        if (item.equipmentRarity === targetRarity) {
+          this.money += item.price;
+        }
+        return item.equipmentRarity !== targetRarity;
+      });
+    },
   },
 });
