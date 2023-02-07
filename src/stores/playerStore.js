@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { generateRandomItem } from "../helpers/itemCreator.js";
 import { compareItemsDamageAndDefense } from "../helpers/playerHelper.js";
+import { useEquipmentStore } from "./equipmentStore.js";
 
 export const usePlayerStore = defineStore("player", {
   state: () => ({
@@ -23,16 +24,41 @@ export const usePlayerStore = defineStore("player", {
       this.playerInventory.push(item);
     },
     compareItems() {
-      compareItemsDamageAndDefense(this.playerInventory, this.headArmor);
-      compareItemsDamageAndDefense(this.playerInventory, this.shoulderArmor);
-      compareItemsDamageAndDefense(this.playerInventory, this.chestArmor);
-      compareItemsDamageAndDefense(this.playerInventory, this.handArmor);
-      compareItemsDamageAndDefense(this.playerInventory, this.legArmor);
-      compareItemsDamageAndDefense(this.playerInventory, this.footArmor);
-      compareItemsDamageAndDefense(this.playerInventory, this.ring);
-      compareItemsDamageAndDefense(this.playerInventory, this.trinket);
-      compareItemsDamageAndDefense(this.playerInventory, this.necklace);
-      compareItemsDamageAndDefense(this.playerInventory, this.weapon);
+      const equipmentStore = useEquipmentStore();
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.headArmor
+      );
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.shoulderArmor
+      );
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.chestArmor
+      );
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.handArmor
+      );
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.legArmor
+      );
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.footArmor
+      );
+      compareItemsDamageAndDefense(this.playerInventory, equipmentStore.ring);
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.trinket
+      );
+      compareItemsDamageAndDefense(
+        this.playerInventory,
+        equipmentStore.necklace
+      );
+      compareItemsDamageAndDefense(this.playerInventory, equipmentStore.weapon);
     },
   },
 });
