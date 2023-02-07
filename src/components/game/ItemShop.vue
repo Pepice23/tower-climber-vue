@@ -7,7 +7,7 @@
           class="btn btn-primary button-size"
           :disabled="
             playerStore.money < 2000 ||
-            playerStore.playerInventory.length === 30
+            inventoryStore.playerInventory.length === 30
           "
           @click="buyItem"
         >
@@ -22,11 +22,13 @@
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
+import { useInventoryStore } from "../../stores/inventoryStore.js";
 const playerStore = usePlayerStore();
+const inventoryStore = useInventoryStore();
 
 function buyItem() {
-  playerStore.addItemToInventory();
-  playerStore.compareItems();
+  inventoryStore.addItemToInventory();
+  inventoryStore.compareItems();
   playerStore.subtractMoney(2000);
 }
 </script>

@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
-import { generateRandomItem } from "../helpers/itemCreator.js";
-import { compareItemsDamageAndDefense } from "../helpers/playerHelper.js";
 import { useEquipmentStore } from "./equipmentStore.js";
+import { useInventoryStore } from "./inventoryStore.js";
 
 export const usePlayerStore = defineStore("player", {
   state: () => ({
@@ -14,58 +13,10 @@ export const usePlayerStore = defineStore("player", {
     currentXP: 0,
     nextLevelXP: 50,
     avatar: {},
-    playerInventory: [],
     itemStartId: 0,
     hasSavedGame: false,
   }),
   actions: {
-    addItemToInventory() {
-      const item = generateRandomItem(this.playerLevel, this.itemStartId);
-      this.playerInventory.push(item);
-      this.itemStartId++;
-    },
-    compareItems() {
-      const equipmentStore = useEquipmentStore();
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.headArmor
-      );
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.shoulderArmor
-      );
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.chestArmor
-      );
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.handArmor
-      );
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.legArmor
-      );
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.footArmor
-      );
-      compareItemsDamageAndDefense(this.playerInventory, equipmentStore.ring);
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.trinket
-      );
-      compareItemsDamageAndDefense(
-        this.playerInventory,
-        equipmentStore.necklace
-      );
-      compareItemsDamageAndDefense(this.playerInventory, equipmentStore.weapon);
-    },
-    removeItemFromInventory(id) {
-      this.playerInventory = this.playerInventory.filter((item) => {
-        return item.id !== id;
-      });
-    },
     totalDamage() {
       const equipmentStore = useEquipmentStore();
       this.playerDamage =
@@ -95,21 +46,14 @@ export const usePlayerStore = defineStore("player", {
         equipmentStore.weapon.equipmentDefense;
     },
     equipItem(item) {
-      this.removeItemFromInventory(item.id);
-      this.compareItems();
+      const inventoryStore = useInventoryStore();
+      inventoryStore.removeItemFromInventory(item.id);
+      inventoryStore.compareItems();
       this.totalDamage();
       this.totalDefense();
     },
     subtractMoney(amount) {
       this.money -= amount;
-    },
-    sellAllItem(targetRarity) {
-      this.playerInventory = this.playerInventory.filter((item) => {
-        if (item.equipmentRarity === targetRarity) {
-          this.money += item.price;
-        }
-        return item.equipmentRarity !== targetRarity;
-      });
     },
   },
 });

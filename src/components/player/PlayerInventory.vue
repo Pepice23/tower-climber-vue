@@ -28,35 +28,35 @@
     </div>
   </div>
   <div class="row">
-    <div class="col" v-for="item in playerStore.playerInventory">
+    <div class="col" v-for="item in inventoryStore.playerInventory">
       <InventoryCard :item="item" :key="item.id" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { usePlayerStore } from "../../stores/playerStore";
 import InventoryCard from "./InventoryCard.vue";
+import { useInventoryStore } from "../../stores/inventoryStore.js";
 
-const playerStore = usePlayerStore();
+const inventoryStore = useInventoryStore();
 
 const sellAllPoorItems = () => {
-  playerStore.sellAllItem(1);
+  inventoryStore.sellAllItem(1);
 };
 
 const sellAllUncommonItems = () => {
-  playerStore.sellAllItem(2);
+  inventoryStore.sellAllItem(2);
 };
 
 const sellAllRareItems = () => {
-  playerStore.sellAllItem(3);
+  inventoryStore.sellAllItem(3);
 };
 const sellAllEpicItems = () => {
-  playerStore.sellAllItem(4);
+  inventoryStore.sellAllItem(4);
 };
 
 const sellAllLegendaryItems = () => {
-  playerStore.sellAllItem(5);
+  inventoryStore.sellAllItem(5);
 };
 </script>
 
