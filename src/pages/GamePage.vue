@@ -66,7 +66,7 @@ window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   appWindow.close();
 });
 
-function addXP(xp: number) {
+function addXP(xp) {
   playerStore.currentXP += xp;
 }
 </script>

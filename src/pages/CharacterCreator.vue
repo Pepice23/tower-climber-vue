@@ -36,7 +36,7 @@ const fileStore = useFileOperationsStore();
 
 let heroSelected = ref(false);
 
-function selectHero(hero: any) {
+function selectHero(hero) {
   playerStore.avatar = hero;
   heroSelected.value = true;
 }
