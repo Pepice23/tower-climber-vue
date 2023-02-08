@@ -28,7 +28,6 @@ const inventoryStore = useInventoryStore();
 
 function buyItem() {
   inventoryStore.addItemToInventory();
-  inventoryStore.compareItems();
   playerStore.subtractMoney(2000);
 }
 </script>

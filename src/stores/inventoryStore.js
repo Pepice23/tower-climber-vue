@@ -2,14 +2,20 @@ import { defineStore } from "pinia";
 import { generateRandomItem } from "../helpers/itemCreator.js";
 import { useEquipmentStore } from "./equipmentStore.js";
 import { compareItemsDamageAndDefense } from "../helpers/playerHelper.js";
+import { usePlayerStore } from "./playerStore.js";
 
 export const useInventoryStore = defineStore("inventory", {
   state: () => ({ playerInventory: [] }),
   actions: {
     addItemToInventory() {
-      const item = generateRandomItem(this.playerLevel, this.itemStartId);
+      const playerStore = usePlayerStore();
+      const item = generateRandomItem(
+        playerStore.playerLevel,
+        playerStore.itemStartId
+      );
       this.playerInventory.push(item);
-      this.itemStartId++;
+      playerStore.itemStartId++;
+      this.compareItems();
     },
     removeItemFromInventory(id) {
       this.playerInventory = this.playerInventory.filter((item) => {
