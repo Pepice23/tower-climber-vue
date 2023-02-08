@@ -103,7 +103,7 @@ const equipItem = (item) => {
 }
 
 .background-epic {
-  background-color: #50009f;
+  background-color: #17a2b8;
 }
 
 .background-legendary {
