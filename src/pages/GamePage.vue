@@ -77,6 +77,8 @@ const outcome = ref("");
 const battleStarted = ref(false);
 const battleEnded = ref(true);
 
+let combat;
+
 window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   fileOperationsStore.savePlayerToFile();
   fileOperationsStore.saveEquipmentToFile();
@@ -106,31 +108,12 @@ function playerWins() {
   monsterStore.monsterVisible = false;
   outcome.value = "You win!";
   playerStore.monsterCount += 1;
-  calculateXP();
-  checkLevelUp();
+  playerStore.calculateXP();
+  playerStore.checkLevelUp();
   checkNextFloor();
   checkIfPlayerGetsLoot();
   addMoneyToPlayer();
   checkInventoryFull();
-}
-
-function calculateXP() {
-  let xpPercent = getRandomNumber(4, 10);
-  let base = xpPercent / 100;
-  let xp = base * playerStore.nextLevelXP;
-  playerStore.currentXP = Math.floor(playerStore.currentXP + xp);
-}
-
-function checkLevelUp() {
-  if (playerStore.currentXP >= playerStore.nextLevelXP) {
-    playerStore.playerLevel += 1;
-    playerStore.playerDamage += 5;
-    playerStore.playerDefense += 5;
-    if (playerStore.currentXP >= playerStore.nextLevelXP) {
-      playerStore.currentXP = playerStore.currentXP - playerStore.nextLevelXP;
-    }
-    playerStore.nextLevelXP = Math.floor(playerStore.nextLevelXP * 1.15);
-  }
 }
 
 function checkNextFloor() {
@@ -172,7 +155,7 @@ function playerLoses() {
 function startBattle() {
   battleStarted.value = true;
   battleEnded.value = false;
-  const combat = setInterval(battle, 1000);
+  combat = setInterval(battle, 2000);
 }
 
 function stopBattle() {
