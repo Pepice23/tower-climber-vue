@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { useEquipmentStore } from "./equipmentStore.js";
 import { useInventoryStore } from "./inventoryStore.js";
+import { getRandomNumber } from "../helpers/playerHelper.js";
 
 export const usePlayerStore = defineStore("player", {
   state: () => ({
@@ -55,6 +56,23 @@ export const usePlayerStore = defineStore("player", {
     },
     subtractMoney(amount) {
       this.money -= amount;
+    },
+    checkLevelUp() {
+      if (this.currentXP >= this.nextLevelXP) {
+        this.playerLevel += 1;
+        this.playerDamage += 5;
+        this.playerDefense += 5;
+        if (this.currentXP >= this.nextLevelXP) {
+          this.currentXP = this.currentXP - this.nextLevelXP;
+        }
+        this.nextLevelXP = Math.floor(this.nextLevelXP * 1.15);
+      }
+    },
+    calculateXP() {
+      let xpPercent = getRandomNumber(4, 10);
+      let base = xpPercent / 100;
+      let xp = base * this.nextLevelXP;
+      this.currentXP = Math.floor(this.currentXP + xp);
     },
   },
 });
