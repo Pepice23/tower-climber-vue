@@ -155,7 +155,7 @@ function playerLoses() {
 function startBattle() {
   battleStarted.value = true;
   battleEnded.value = false;
-  combat = setInterval(battle, 2000);
+  combat = setInterval(battle, 1500);
 }
 
 function stopBattle() {
