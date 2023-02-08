@@ -4,6 +4,7 @@ import { useInventoryStore } from "./inventoryStore.js";
 
 export const usePlayerStore = defineStore("player", {
   state: () => ({
+    playerVisible: true,
     playerDamage: 10,
     playerDefense: 10,
     playerLevel: 1,

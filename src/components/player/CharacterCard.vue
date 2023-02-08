@@ -1,5 +1,5 @@
 <template>
-  <div class="col">
+  <div class="col" v-if="playerStore.playerVisible">
     <h3>Level: {{ playerStore.playerLevel }}</h3>
     <img
       :src="playerStore.avatar.picturePath"
