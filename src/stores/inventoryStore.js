@@ -23,9 +23,10 @@ export const useInventoryStore = defineStore("inventory", {
       });
     },
     sellAllItem(targetRarity) {
+      const playerStore = usePlayerStore();
       this.playerInventory = this.playerInventory.filter((item) => {
         if (item.equipmentRarity === targetRarity) {
-          this.money += item.price;
+          playerStore.money += item.price;
         }
         return item.equipmentRarity !== targetRarity;
       });
