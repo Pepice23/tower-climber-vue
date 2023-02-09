@@ -8,6 +8,7 @@ import {
 } from "@tauri-apps/api/fs";
 import { usePlayerStore } from "./playerStore";
 import { useEquipmentStore } from "./equipmentStore";
+import { useInventoryStore } from "./inventoryStore.js";
 
 export const useFileOperationsStore = defineStore("fileOperations", {
   state: () => ({}),
@@ -109,11 +110,12 @@ export const useFileOperationsStore = defineStore("fileOperations", {
     },
     async saveInventoryToFile() {
       const playerStore = usePlayerStore();
+      const inventoryStore = useInventoryStore();
       try {
         await writeFile(
           "tower-climber/inventorySave.json",
           JSON.stringify({
-            inventory: playerStore.playerInventory,
+            inventory: inventoryStore.playerInventory,
             itemStartId: playerStore.itemStartId,
           }),
           {
@@ -126,6 +128,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
     },
     async loadInventoryFromFile() {
       const playerStore = usePlayerStore();
+      const inventoryStore = useInventoryStore();
       try {
         const inventory = await readTextFile(
           "tower-climber/inventorySave.json",
@@ -134,7 +137,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
           }
         );
         const inventoryJson = JSON.parse(inventory);
-        playerStore.playerInventory = inventoryJson.inventory;
+        inventoryStore.playerInventory = inventoryJson.inventory;
         playerStore.itemStartId = inventoryJson.itemStartId;
       } catch (e) {
         console.error(e);
