@@ -44,11 +44,11 @@ defineProps({
 }
 
 .background-rare {
-  background-color: #003292;
+  background-color: #0070dd;
 }
 
 .background-epic {
-  background-color: #17a2b8;
+  background-color: #a335ee;
 }
 
 .background-legendary {
