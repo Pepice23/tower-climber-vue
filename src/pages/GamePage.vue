@@ -96,7 +96,7 @@ function battle() {
     playerLoses();
   }
   setTimeout(() => {
-    monsterStore.setRandomMonsterAvatar();
+    monsterStore.setUpMonster();
     monsterStore.monsterVisible = true;
     playerStore.playerVisible = true;
     outcome.value = "";
