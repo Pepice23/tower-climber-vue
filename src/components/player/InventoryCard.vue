@@ -1,46 +1,50 @@
 <template>
-  <div
-    class="col m-2 inventory-border"
-    :class="{
-      'background-poor': props.item.equipmentRarity === 1,
-      'background-uncommon': props.item.equipmentRarity === 2,
-      'background-rare': props.item.equipmentRarity === 3,
-      'background-epic': props.item.equipmentRarity === 4,
-      'background-legendary': props.item.equipmentRarity === 5,
-    }"
-  >
-    <button class="btn" @click="equipItem(item)">
-      <div class="row text-white">
-        <div class="col">
+  <div class="inventory-border m-2 text-white card-size">
+    <div
+      class="row m-2"
+      :class="{
+        'background-poor': props.item.equipmentRarity === 1,
+        'background-uncommon': props.item.equipmentRarity === 2,
+        'background-rare': props.item.equipmentRarity === 3,
+        'background-epic': props.item.equipmentRarity === 4,
+        'background-legendary': props.item.equipmentRarity === 5,
+      }"
+    >
+      <div class="col m-2">
+        <button @click="equipItem(item)">
           <img
             :src="props.item.picturePath"
             :alt="props.item.equipmentName"
             class="picture-size m-2"
           />
-        </div>
-        <div class="col">
-          <h6>{{ props.item.equipmentName }}</h6>
-          <h6>Level:{{ props.item.equipmentLevel }}</h6>
-          <h6>Damage:{{ props.item.equipmentDamage }}</h6>
-          <h6>Defense:{{ props.item.equipmentDefense }}</h6>
-          <h5 class="text-success" v-if="props.item.dmgPercent > 0">
-            DMG Difference: {{ props.item.dmgPercent }}%
-          </h5>
-
-          <h5 class="text-danger" v-if="props.item.dmgPercent < 0">
-            DMG Difference: {{ props.item.dmgPercent }}%
-          </h5>
-
-          <h5 class="text-success" v-if="props.item.defPercent > 0">
-            DEF Difference: {{ props.item.defPercent }}%
-          </h5>
-
-          <h5 class="text-danger" v-if="props.item.defPercent < 0">
-            DEF Difference: {{ props.item.defPercent }}%
-          </h5>
-        </div>
+        </button>
       </div>
-    </button>
+      <div class="col m-2">
+        <h6>{{ props.item.equipmentName }}</h6>
+        <h6>Level:{{ props.item.equipmentLevel }}</h6>
+        <h6>Damage:{{ props.item.equipmentDamage }}</h6>
+        <h6>Defense:{{ props.item.equipmentDefense }}</h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5 class="text-success" v-if="props.item.dmgPercent > 0">
+          DMG Difference: {{ props.item.dmgPercent }}%
+        </h5>
+
+        <h5 class="text-danger" v-if="props.item.dmgPercent < 0">
+          DMG Difference: {{ props.item.dmgPercent }}%
+        </h5>
+
+        <h5 class="text-success" v-if="props.item.defPercent > 0">
+          DEF Difference: {{ props.item.defPercent }}%
+        </h5>
+
+        <h5 class="text-danger" v-if="props.item.defPercent < 0">
+          DEF Difference: {{ props.item.defPercent }}%
+        </h5>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -99,11 +103,11 @@ const equipItem = (item) => {
 }
 
 .background-rare {
-  background-color: #003292;
+  background-color: #0070dd;
 }
 
 .background-epic {
-  background-color: #17a2b8;
+  background-color: #a335ee;
 }
 
 .background-legendary {
@@ -117,5 +121,10 @@ const equipItem = (item) => {
 
 .inventory-border {
   border: 1px solid black;
+}
+
+.card-size {
+  width: 245px;
+  height: 345px;
 }
 </style>
