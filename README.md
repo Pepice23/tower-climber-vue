@@ -1,7 +1,20 @@
-# Tauri + Vue 3
+# Tower Climber (Developed by: Neona Studios)
+A small simple hybrid idle game.
+Made with Tauri and Vue.js.
+It has a shop to buy equipment.
 
-This template should help get you started developing with Tauri + Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Gameplay
+You start on the first floor of a tower. As you battle your way through (automatically) you will gain experience and gold.
+You can use the gold to buy equipment in the shop. As well as you get a chance of getting items from defeated enemies. Every floors last enemy gives you  an item that is guaranteed.
+If you lose, you will lose the progress on the current floor and have to start over.
 
-## Recommended IDE Setup
+### Features
+- [x] Shop
+- [x] Equipment
+- [x] AI generated pictures
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+### Controls
+Keyboard and a mouse are required.
+
+### Version
+0.1.0
