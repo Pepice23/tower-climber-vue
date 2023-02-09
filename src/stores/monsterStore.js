@@ -11,7 +11,7 @@ export const useMonsterStore = defineStore("monster", {
   }),
   actions: {
     setRandomMonsterAvatar() {
-      this.monsterAvatar = `src/assets/enemies/enemy${getRandomNumber(
+      this.monsterAvatar = `/assets/enemies/enemy${getRandomNumber(
         1,
         25
       )}.jpeg`;
