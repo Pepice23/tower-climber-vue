@@ -2,27 +2,47 @@
   <h1>Players Inventory</h1>
   <div class="row m-2">
     <div class="col">
-      <button class="btn background-poor" @click="sellAllPoorItems">
+      <button
+        class="btn background-poor"
+        @click="sellAllPoorItems"
+        :disabled="!inventoryStore.poorButton"
+      >
         Sell All Poor Items
       </button>
     </div>
     <div class="col">
-      <button class="btn background-uncommon" @click="sellAllUncommonItems">
+      <button
+        class="btn background-uncommon"
+        @click="sellAllUncommonItems"
+        :disabled="!inventoryStore.uncommonButton"
+      >
         Sell All Uncommon Items
       </button>
     </div>
     <div class="col">
-      <button class="btn background-rare" @click="sellAllRareItems">
+      <button
+        class="btn background-rare"
+        @click="sellAllRareItems"
+        :disabled="!inventoryStore.rareButton"
+      >
         Sell All Rare Items
       </button>
     </div>
     <div class="col">
-      <button class="btn background-epic" @click="sellAllEpicItems">
+      <button
+        class="btn background-epic"
+        @click="sellAllEpicItems"
+        :disabled="!inventoryStore.epicButton"
+      >
         Sell All Epic Items
       </button>
     </div>
     <div class="col">
-      <button class="btn background-legendary" @click="sellAllLegendaryItems">
+      <button
+        class="btn background-legendary"
+        @click="sellAllLegendaryItems"
+        :disabled="!inventoryStore.legendaryButton"
+      >
         Sell All Legendary Items
       </button>
     </div>
@@ -42,21 +62,26 @@ const inventoryStore = useInventoryStore();
 
 const sellAllPoorItems = () => {
   inventoryStore.sellAllItem(1);
+  inventoryStore.poorButton = false;
 };
 
 const sellAllUncommonItems = () => {
   inventoryStore.sellAllItem(2);
+  inventoryStore.uncommonButton = false;
 };
 
 const sellAllRareItems = () => {
   inventoryStore.sellAllItem(3);
+  inventoryStore.rareButton = false;
 };
 const sellAllEpicItems = () => {
   inventoryStore.sellAllItem(4);
+  inventoryStore.epicButton = false;
 };
 
 const sellAllLegendaryItems = () => {
   inventoryStore.sellAllItem(5);
+  inventoryStore.legendaryButton = false;
 };
 </script>
 

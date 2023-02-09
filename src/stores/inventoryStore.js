@@ -5,7 +5,14 @@ import { compareItemsDamageAndDefense } from "../helpers/playerHelper.js";
 import { usePlayerStore } from "./playerStore.js";
 
 export const useInventoryStore = defineStore("inventory", {
-  state: () => ({ playerInventory: [] }),
+  state: () => ({
+    playerInventory: [],
+    poorButton: false,
+    uncommonButton: false,
+    rareButton: false,
+    epicButton: false,
+    legendaryButton: false,
+  }),
   actions: {
     addItemToInventory() {
       const playerStore = usePlayerStore();
@@ -16,6 +23,7 @@ export const useInventoryStore = defineStore("inventory", {
       this.playerInventory.push(item);
       playerStore.itemStartId++;
       this.compareItems();
+      this.switchRarityButton(item);
     },
     removeItemFromInventory(id) {
       this.playerInventory = this.playerInventory.filter((item) => {
@@ -67,6 +75,23 @@ export const useInventoryStore = defineStore("inventory", {
         equipmentStore.necklace
       );
       compareItemsDamageAndDefense(this.playerInventory, equipmentStore.weapon);
+    },
+    switchRarityButton(item) {
+      if (item.equipmentRarity === 1 && this.poorButton === false) {
+        this.poorButton = true;
+      }
+      if (item.equipmentRarity === 2 && this.uncommonButton === false) {
+        this.uncommonButton = true;
+      }
+      if (item.equipmentRarity === 3 && this.rareButton === false) {
+        this.rareButton = true;
+      }
+      if (item.equipmentRarity === 4 && this.epicButton === false) {
+        this.epicButton = true;
+      }
+      if (item.equipmentRarity === 5 && this.legendaryButton === false) {
+        this.legendaryButton = true;
+      }
     },
   },
 });
