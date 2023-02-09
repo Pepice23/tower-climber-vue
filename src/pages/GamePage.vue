@@ -64,6 +64,7 @@ import PlayerInventory from "../components/player/PlayerInventory.vue";
 import { ref } from "vue";
 import { getRandomNumber } from "../helpers/playerHelper.js";
 import { useInventoryStore } from "../stores/inventoryStore.js";
+import router from "../router/index.js";
 
 const monsterStore = useMonsterStore();
 monsterStore.setRandomMonsterAvatar();
@@ -114,6 +115,7 @@ function playerWins() {
   checkIfPlayerGetsLoot();
   addMoneyToPlayer();
   checkInventoryFull();
+  checkGameEnd();
 }
 
 function checkNextFloor() {
@@ -142,6 +144,15 @@ function checkInventoryFull() {
   if (inventoryStore.playerInventory.length === 30) {
     alert("Your inventory is full! You can't pick up any more items.");
     stopBattle();
+  }
+}
+
+function checkGameEnd() {
+  if (playerStore.floor >= 100) {
+    stopBattle();
+    alert("You have reached the end of the game! Congratulations!");
+    alert(`You have reached level ${playerStore.playerLevel}!`);
+    router.push("/");
   }
 }
 
