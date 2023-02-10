@@ -1,5 +1,5 @@
 <template>
-  <div class="progress position-relative" style="height: 30px">
+  <div class="progress position-relative text-black" style="height: 30px">
     <div
       class="progress-bar"
       role="progressbar"
