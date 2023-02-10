@@ -6,17 +6,21 @@ import { getRandomNumber } from "../helpers/playerHelper.js";
 export const usePlayerStore = defineStore("player", {
   state: () => ({
     playerVisible: true,
-    playerDamage: 10,
-    playerDefense: 10,
+    playerDamagePerClick: 10,
+    playerDamagePerSecond: 10,
     playerLevel: 1,
     money: 12000,
     floor: 1,
-    monsterCount: 0,
+    monsterCount: 1,
     currentXP: 0,
     nextLevelXP: 50,
     avatar: {},
     itemStartId: 0,
     hasSavedGame: false,
+    outcome: "",
+    background: "/assets/background/bg-2.png",
+    bossTimer: 30,
+    bossTimerMax: 30,
   }),
   actions: {
     totalDamage() {
