@@ -1,57 +1,44 @@
 <template>
-  <div class="row m-2">
+  <div
+    class="row m-3"
+    style="
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    "
+    :style="{ backgroundImage: 'url(' + playerStore.background + ')' }"
+  >
     <StageDisplay />
+    <CombatScreen />
     <div class="row m-2">
-      <div class="col">
-        <CharacterCard />
-      </div>
-      <div class="col">
-        <h1>{{ outcome }}</h1>
-      </div>
-      <div class="col">
-        <MonsterCard />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
+      <div class="col m-2">
         <button
           class="btn btn-primary attack-button"
           @click="startBattle"
           :disabled="battleStarted"
         >
-          Start Battle
-        </button>
-      </div>
-      <div class="col">
-        <button
-          class="btn btn-primary attack-button"
-          @click="stopBattle"
-          :disabled="battleEnded"
-        >
-          Stop Battle
+          ATTACK!
         </button>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <PlayerEquipment />
         <div class="row">
-          <PlayerEquipment />
-          <div class="row">
-            <ItemShop />
-          </div>
+          <ItemShop />
         </div>
       </div>
-      <div class="col">
-        <PlayerInventory />
-      </div>
+    </div>
+    <div class="col">
+      <PlayerInventory />
     </div>
   </div>
 </template>
 
 <script setup>
 import StageDisplay from "../components/game/StageDisplay.vue";
-import MonsterCard from "../components/game/MonsterCard.vue";
-import CharacterCard from "../components/player/CharacterCard.vue";
 import { usePlayerStore } from "../stores/playerStore";
 import { useMonsterStore } from "../stores/monsterStore";
 import { useFileOperationsStore } from "../stores/fileOperationsStore";
@@ -65,6 +52,7 @@ import { ref } from "vue";
 import { getRandomNumber } from "../helpers/playerHelper.js";
 import { useInventoryStore } from "../stores/inventoryStore.js";
 import router from "../router/index.js";
+import CombatScreen from "../components/game/CombatScreen.vue";
 
 const monsterStore = useMonsterStore();
 monsterStore.setRandomMonsterAvatar();
@@ -74,7 +62,6 @@ const fileOperationsStore = useFileOperationsStore();
 const playerStore = usePlayerStore();
 const inventoryStore = useInventoryStore();
 
-const outcome = ref("");
 const battleStarted = ref(false);
 const battleEnded = ref(true);
 
@@ -88,40 +75,38 @@ window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
 });
 
 function battle() {
-  if (
-    playerStore.playerDamage >= monsterStore.monsterDefense &&
-    monsterStore.monsterDamage <= playerStore.playerDefense
-  ) {
+  monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
+  if (monsterStore.monsterCurrentHP <= 0) {
+    stopBattle();
     playerWins();
-  } else {
-    playerLoses();
+    setTimeout(() => {
+      monsterStore.setUpMonster();
+      monsterStore.monsterVisible = true;
+      playerStore.playerVisible = true;
+      playerStore.outcome = "";
+      combat = setInterval(battle, 1000);
+    }, 1000);
   }
-  setTimeout(() => {
-    monsterStore.setUpMonster();
-    monsterStore.monsterVisible = true;
-    playerStore.playerVisible = true;
-    outcome.value = "";
-  }, 1000);
 }
 
 function playerWins() {
   playerStore.playerVisible = true;
   monsterStore.monsterVisible = false;
-  outcome.value = "You win!";
+  playerStore.outcome = "You win!";
   playerStore.monsterCount += 1;
   playerStore.calculateXP();
   playerStore.checkLevelUp();
   checkNextFloor();
-  checkIfPlayerGetsLoot();
+  // checkIfPlayerGetsLoot();
   addMoneyToPlayer();
-  checkInventoryFull();
+  // checkInventoryFull();
   checkGameEnd();
 }
 
 function checkNextFloor() {
-  if (playerStore.monsterCount === 15) {
+  if (playerStore.monsterCount === 16) {
     playerStore.floor += 1;
-    playerStore.monsterCount = 0;
+    playerStore.monsterCount = 1;
 
     inventoryStore.addItemToInventory();
   }
@@ -156,17 +141,10 @@ function checkGameEnd() {
   }
 }
 
-function playerLoses() {
-  playerStore.playerVisible = false;
-  monsterStore.monsterVisible = true;
-  outcome.value = "You lose!";
-  playerStore.monsterCount = 0;
-}
+combat = setInterval(battle, 1000);
 
 function startBattle() {
-  battleStarted.value = true;
-  battleEnded.value = false;
-  combat = setInterval(battle, 1500);
+  monsterStore.monsterCurrentHP -= playerStore.playerDamagePerClick;
 }
 
 function stopBattle() {
@@ -176,4 +154,9 @@ function stopBattle() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.attack-button {
+  width: 100px;
+  height: 100px;
+}
+</style>
