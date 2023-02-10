@@ -4,8 +4,8 @@ import { usePlayerStore } from "./playerStore.js";
 
 export const useMonsterStore = defineStore("monster", {
   state: () => ({
-    monsterDamage: 1,
-    monsterDefense: 1,
+    monsterCurrentHP: 400,
+    monsterMaxHP: 400,
     monsterAvatar: "",
     monsterVisible: true,
   }),
@@ -16,20 +16,15 @@ export const useMonsterStore = defineStore("monster", {
         25
       )}.jpeg`;
     },
-    setMonsterDamage() {
+    setMonsterHP() {
       const playerStore = usePlayerStore();
-      this.monsterDamage =
+      this.monsterMaxHP =
         (playerStore.floor * playerStore.monsterCount + 1) * 10;
-    },
-    setMonsterDefense() {
-      const playerStore = usePlayerStore();
-      this.monsterDefense =
-        (playerStore.floor * playerStore.monsterCount + 1) * 10;
+      this.monsterCurrentHP = this.monsterMaxHP;
     },
     setUpMonster() {
       this.setRandomMonsterAvatar();
-      this.setMonsterDamage();
-      this.setMonsterDefense();
+      this.setMonsterHP();
     },
   },
 });
