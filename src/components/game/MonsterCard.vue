@@ -1,19 +1,19 @@
 <template>
-  <div class="col" v-if="monsterStore.monsterVisible">
+  <div class="col text-white" v-if="monsterStore.monsterVisible">
     <h3>Level: {{ playerStore.floor }}</h3>
     <img
       :src="monsterStore.monsterAvatar"
       alt="Monster"
       class="picture-size m-2"
     />
-    <h3>Damage: {{ monsterStore.monsterDamage }}</h3>
-    <h3>Defense: {{ monsterStore.monsterDefense }}</h3>
+    <MonsterHPBar />
   </div>
 </template>
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
 import { useMonsterStore } from "../../stores/monsterStore";
+import MonsterHPBar from "./MonsterHPBar.vue";
 const playerStore = usePlayerStore();
 const monsterStore = useMonsterStore();
 </script>

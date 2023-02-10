@@ -1,13 +1,13 @@
 <template>
-  <div class="col" v-if="playerStore.playerVisible">
+  <div class="col text-white" v-if="playerStore.playerVisible">
     <h3>Level: {{ playerStore.playerLevel }}</h3>
     <img
       :src="playerStore.avatar.picturePath"
       :alt="playerStore.avatar.name"
       class="picture-size m-2"
     />
-    <h3>Damage: {{ playerStore.playerDamage }}</h3>
-    <h3>Defense: {{ playerStore.playerDefense }}</h3>
+    <h3>Damage per Click: {{ playerStore.playerDamagePerClick }}</h3>
+    <h3>Damage per Second: {{ playerStore.playerDamagePerSecond }}</h3>
     <XPBar />
   </div>
 </template>

@@ -24,8 +24,17 @@
           aria-valuemin="1"
           aria-valuemax="100"
         ></div>
-        <h5 class="justify-content-center d-flex position-absolute w-100">
+        <h5
+          class="justify-content-center d-flex position-absolute w-100"
+          v-if="store.monsterCount < 15"
+        >
           Monster: {{ store.monsterCount }}/15
+        </h5>
+        <h5
+          class="justify-content-center d-flex position-absolute w-100"
+          v-if="store.monsterCount === 15"
+        >
+          Boss of the {{ store.floor }}th floor
         </h5>
       </div>
     </div>
