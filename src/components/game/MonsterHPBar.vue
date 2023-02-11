@@ -1,12 +1,13 @@
 <template>
   <div class="progress position-relative text-black" style="height: 30px">
     <div
-      class="progress-bar bg-success"
+      class="progress-bar opacity-50"
       role="progressbar"
       :style="{
         width:
           (monsterStore.monsterCurrentHP / monsterStore.monsterMaxHP) * 100 +
           '%',
+        backgroundImage: 'url(' + monsterStore.xpBackground + ')',
       }"
       aria-valuemin="1"
       aria-valuemax="100"

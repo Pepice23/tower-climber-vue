@@ -8,6 +8,7 @@ export const useMonsterStore = defineStore("monster", {
     monsterMaxHP: 30,
     monsterAvatar: "",
     monsterVisible: true,
+    xpBackground: "/assets/UI/bar-test.png",
   }),
   actions: {
     setRandomMonsterAvatar() {
