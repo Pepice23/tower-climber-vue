@@ -19,11 +19,22 @@
 - hogy közben se legyen esélytelen fegyvereket dropolhatnak a mobok (+dmg)
   és ritkán találhatnak dmg szorzós legendary fegyvereket is
 
+
 ## Mi kell hozzá?
 
 - Minimum 10 darab fantasy háttér, ami a kastély különboző
   emeleteit szimbolizálja
 - 9 fajta érc amiből a páncélzat készülhet
+- Ércek:
+  1. Fresirine
+  2. Ceymanite
+  3. Chintoid
+  4. Jasentine
+  5. Inyococite
+  6. Pecoycrase
+  7. Demdingerite
+  8. Zirhemite
+  9. Conclaite
 - Több fajta ellenség
 - 10 egyedi big baws
 - 20 egyedi weapon
