@@ -4,8 +4,8 @@ import { usePlayerStore } from "./playerStore.js";
 
 export const useMonsterStore = defineStore("monster", {
   state: () => ({
-    monsterCurrentHP: 400,
-    monsterMaxHP: 400,
+    monsterCurrentHP: 30,
+    monsterMaxHP: 30,
     monsterAvatar: "",
     monsterVisible: true,
   }),
@@ -18,8 +18,7 @@ export const useMonsterStore = defineStore("monster", {
     },
     setMonsterHP() {
       const playerStore = usePlayerStore();
-      this.monsterMaxHP =
-        (playerStore.floor * playerStore.monsterCount + 1) * 10;
+      this.monsterMaxHP = playerStore.floor * playerStore.monsterCount * 100;
       this.monsterCurrentHP = this.monsterMaxHP;
     },
     setUpMonster() {
