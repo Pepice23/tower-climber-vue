@@ -5,10 +5,7 @@
       <div class="col">
         <button
           class="btn btn-primary button-size"
-          :disabled="
-            playerStore.money < 2000 ||
-            inventoryStore.playerInventory.length === 30
-          "
+          :disabled="playerStore.money < 2000"
           @click="buyItem"
         >
           Buy Item
@@ -22,12 +19,11 @@
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
-import { useInventoryStore } from "../../stores/inventoryStore.js";
+
 const playerStore = usePlayerStore();
-const inventoryStore = useInventoryStore();
 
 function buyItem() {
-  inventoryStore.addItemToInventory();
+  playerStore.getNewWeapon();
   playerStore.subtractMoney(2000);
 }
 </script>
