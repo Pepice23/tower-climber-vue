@@ -9,62 +9,8 @@ const rarity = {
 };
 
 const itemSlots = {
-  HEAD: {
-    slotNumber: 1,
-    slotName: "Helmet",
-    imgPath: "/assets/loot/helmet/helmet",
-    availableImages: 10,
-  },
-  SHOULDER: {
-    slotNumber: 2,
-    slotName: "Pauldron",
-    imgPath: "/assets/loot/pauldron/pauldron",
-    availableImages: 10,
-  },
-  CHEST: {
-    slotNumber: 3,
-    slotName: "Breastplate",
-    imgPath: "/assets/loot/breastplate/breastplate",
-    availableImages: 10,
-  },
-  HANDS: {
-    slotNumber: 4,
-    slotName: "Gauntlets",
-    imgPath: "/assets/loot/gauntlets/gauntlets",
-    availableImages: 10,
-  },
-  LEGS: {
-    slotNumber: 5,
-    slotName: "Legplates",
-    imgPath: "/assets/loot/legguards/legguards",
-    availableImages: 3,
-  },
-  FEET: {
-    slotNumber: 6,
-    slotName: "Sabatons",
-    imgPath: "/assets/loot/shoes/shoes",
-    availableImages: 5,
-  },
-  RING: {
-    slotNumber: 7,
-    slotName: "Ring",
-    imgPath: "/assets/loot/ring/ring",
-    availableImages: 9,
-  },
-  TRINKET: {
-    slotNumber: 8,
-    slotName: "Trinket",
-    imgPath: "/assets/loot/trinket/trinket",
-    availableImages: 5,
-  },
-  NECKLACE: {
-    slotNumber: 9,
-    slotName: "Necklace",
-    imgPath: "/assets/loot/necklace/necklace",
-    availableImages: 9,
-  },
   WEAPON: {
-    slotNumber: 10,
+    slotNumber: 1,
     slotName: "Weapon",
     imgPath: "/assets/loot/weapons/weapon",
     availableImages: 10,
@@ -74,15 +20,15 @@ const itemSlots = {
 export function generateRandomItem(level, id) {
   const item = {};
   const rarity = getRandomRarity();
-  const slot = getRandomItemSlot();
-  const atk = generateRandomStat(rarity.rarityNumber, level);
-  const def = generateRandomStat(rarity.rarityNumber, level);
+  const slot = itemSlots.WEAPON;
+  const clickDamage = generateRandomStat(rarity.rarityNumber, level);
+  const perSecDamage = generateRandomStat(rarity.rarityNumber, level);
   item.equipmentName = `${rarity.rarityName} ${slot.slotName}`;
   item.equipmentLevel = level;
-  item.equipmentDamage = atk;
-  item.equipmentDefense = def;
+  item.equipmentPerClickDamage = clickDamage;
+  item.equipmentPerSecDamage = perSecDamage;
   item.equipmentRarity = rarity.rarityNumber;
-  item.equipmentSlot = slot.slotNumber;
+  item.equipmentSlot = 1;
   item.price = rarity.rarityNumber * 5 * level;
   item.id = id;
   item.picturePath = getRandomPicture(slot.imgPath, slot.availableImages);
@@ -90,41 +36,6 @@ export function generateRandomItem(level, id) {
   item.defPercent = 0;
 
   return item;
-}
-
-function getRandomItemSlot() {
-  const roll = diceRoll();
-
-  if (roll <= 10) {
-    return itemSlots.HEAD;
-  }
-  if (roll > 10 && roll <= 20) {
-    return itemSlots.SHOULDER;
-  }
-  if (roll > 20 && roll <= 30) {
-    return itemSlots.CHEST;
-  }
-  if (roll > 30 && roll <= 40) {
-    return itemSlots.HANDS;
-  }
-  if (roll > 40 && roll <= 50) {
-    return itemSlots.LEGS;
-  }
-  if (roll > 50 && roll <= 60) {
-    return itemSlots.FEET;
-  }
-  if (roll > 60 && roll <= 70) {
-    return itemSlots.RING;
-  }
-  if (roll > 70 && roll <= 80) {
-    return itemSlots.TRINKET;
-  }
-  if (roll > 80 && roll <= 90) {
-    return itemSlots.NECKLACE;
-  }
-  if (roll > 90 && roll <= 100) {
-    return itemSlots.WEAPON;
-  }
 }
 
 function getRandomRarity() {
@@ -199,6 +110,6 @@ function getRandomPicture(basePath, availableImages) {
   return `${basePath}${randomImage}.jpeg`;
 }
 
-// for (let i = 0; i < 10; i++) {
-//   console.log(generateRandomItem(1));
-// }
+for (let i = 0; i < 10; i++) {
+  console.log(generateRandomItem(1));
+}
