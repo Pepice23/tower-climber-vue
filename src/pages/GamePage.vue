@@ -66,6 +66,7 @@ const battleStarted = ref(false);
 const battleEnded = ref(true);
 
 let combat;
+let timerBoss;
 
 window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   fileOperationsStore.savePlayerToFile();
@@ -75,16 +76,52 @@ window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
 });
 
 function battle() {
-  monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
-  if (monsterStore.monsterCurrentHP <= 0) {
-    stopBattle();
-    playerWins();
-    setTimeout(() => {
-      monsterStore.setUpMonster();
-      monsterStore.monsterVisible = true;
-      playerStore.playerVisible = true;
-      playerStore.outcome = "";
-      combat = setInterval(battle, 1000);
+  if (playerStore.monsterCount < 15) {
+    combat = setInterval(() => {
+      monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
+      if (monsterStore.monsterCurrentHP <= 0) {
+        clearInterval(combat);
+        playerWins();
+        setTimeout(() => {
+          monsterStore.setUpMonster();
+          monsterStore.monsterVisible = true;
+          playerStore.playerVisible = true;
+          playerStore.outcome = "";
+          battle();
+        }, 1000);
+      }
+    }, 1000);
+  }
+  if (playerStore.monsterCount === 15) {
+    timerBoss = setInterval(() => {
+      playerStore.bossTimer -= 1;
+      monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
+      if (playerStore.bossTimer <= 0 && monsterStore.monsterCurrentHP > 0) {
+        clearInterval(timerBoss);
+        playerLoses();
+        setTimeout(() => {
+          monsterStore.setUpMonster();
+          monsterStore.monsterVisible = true;
+          playerStore.playerVisible = true;
+          playerStore.outcome = "";
+          playerStore.bossTimer = 30;
+          battle();
+        }, 1000);
+      } else if (
+        playerStore.bossTimer > 0 &&
+        monsterStore.monsterCurrentHP <= 0
+      ) {
+        clearInterval(timerBoss);
+        playerWins();
+        setTimeout(() => {
+          monsterStore.setUpMonster();
+          monsterStore.monsterVisible = true;
+          playerStore.playerVisible = true;
+          playerStore.outcome = "";
+          playerStore.bossTimer = 30;
+          battle();
+        }, 1000);
+      }
     }, 1000);
   }
 }
@@ -103,8 +140,15 @@ function playerWins() {
   checkGameEnd();
 }
 
+function playerLoses() {
+  playerStore.playerVisible = false;
+  monsterStore.monsterVisible = true;
+  playerStore.outcome = "You lose!";
+  playerStore.monsterCount = 0;
+}
+
 function checkNextFloor() {
-  if (playerStore.monsterCount === 16) {
+  if (playerStore.monsterCount > 15) {
     playerStore.floor += 1;
     playerStore.monsterCount = 1;
 
@@ -128,30 +172,26 @@ function addMoneyToPlayer() {
 function checkInventoryFull() {
   if (inventoryStore.playerInventory.length === 30) {
     alert("Your inventory is full! You can't pick up any more items.");
-    stopBattle();
+    // stopBattle();
   }
 }
 
 function checkGameEnd() {
   if (playerStore.floor >= 100) {
-    stopBattle();
+    // stopBattle();
     alert("You have reached the end of the game! Congratulations!");
     alert(`You have reached level ${playerStore.playerLevel}!`);
     router.push("/");
   }
 }
 
-combat = setInterval(battle, 1000);
+battle();
 
-function startBattle() {
-  monsterStore.monsterCurrentHP -= playerStore.playerDamagePerClick;
-}
-
-function stopBattle() {
-  battleStarted.value = false;
-  battleEnded.value = true;
-  clearInterval(combat);
-}
+// function stopBattle() {
+//   battleStarted.value = false;
+//   battleEnded.value = true;
+//   clearInterval(combat);
+// }
 </script>
 
 <style scoped>
