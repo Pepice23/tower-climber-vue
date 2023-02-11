@@ -11,20 +11,3 @@ export const heroes = [
   { picturePath: "/assets/heroes/hero6.jpeg", name: "Hero 6" },
   { picturePath: "/assets/heroes/hero7.jpeg", name: "Hero 7" },
 ];
-
-export function compareItemsDamageAndDefense(inventory, armorType) {
-  inventory.forEach((item) => {
-    if (item.equipmentSlot === armorType.equipmentSlot) {
-      const dmgDifference = item.equipmentDamage - armorType.equipmentDamage;
-      const defDifference = item.equipmentDefense - armorType.equipmentDefense;
-      const dmgPercent = Math.floor(
-        (dmgDifference / item.equipmentDamage) * 100
-      );
-      const defPercent = Math.floor(
-        (defDifference / item.equipmentDefense) * 100
-      );
-      item.dmgPercent = dmgPercent;
-      item.defPercent = defPercent;
-    }
-  });
-}
