@@ -16,8 +16,8 @@
       <div class="col">
         <h6>{{ equipmentName }}</h6>
         <h6>Level:{{ equipmentLevel }}</h6>
-        <h6>Damage:{{ equipmentDamage }}</h6>
-        <h6>Defense:{{ equipmentDefense }}</h6>
+        <h6>Damage/Click:{{ equipmentPerClickDamage }}</h6>
+        <h6>Damage/Sec:{{ equipmentPerSecDamage }}</h6>
       </div>
     </div>
   </div>
@@ -27,8 +27,8 @@
 defineProps({
   equipmentName: String,
   equipmentLevel: Number,
-  equipmentDamage: Number,
-  equipmentDefense: Number,
+  equipmentPerClickDamage: Number,
+  equipmentPerSecDamage: Number,
   equipmentRarity: Number,
   picturePath: String,
 });
