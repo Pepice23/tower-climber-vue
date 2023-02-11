@@ -31,9 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="col">
-      <PlayerInventory />
-    </div>
+    <div class="col"></div>
   </div>
 </template>
 
@@ -47,10 +45,10 @@ import { TauriEvent } from "@tauri-apps/api/event";
 import { appWindow } from "@tauri-apps/api/window";
 import PlayerEquipment from "../components/player/PlayerEquipment.vue";
 import ItemShop from "../components/game/ItemShop.vue";
-import PlayerInventory from "../components/player/PlayerInventory.vue";
+
 import { ref } from "vue";
 import { getRandomNumber } from "../helpers/playerHelper.js";
-import { useInventoryStore } from "../stores/inventoryStore.js";
+
 import router from "../router/index.js";
 import CombatScreen from "../components/game/CombatScreen.vue";
 
@@ -60,7 +58,6 @@ monsterStore.setRandomMonsterAvatar();
 const fileOperationsStore = useFileOperationsStore();
 
 const playerStore = usePlayerStore();
-const inventoryStore = useInventoryStore();
 
 const monsterDied = ref(false);
 
@@ -70,7 +67,7 @@ let timerBoss;
 window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   fileOperationsStore.savePlayerToFile();
   fileOperationsStore.saveEquipmentToFile();
-  fileOperationsStore.saveInventoryToFile();
+
   appWindow.close();
 });
 
@@ -148,6 +145,9 @@ function playerWins() {
 
 function playerAttack() {
   monsterStore.monsterCurrentHP -= playerStore.playerDamagePerClick;
+  if (monsterStore.monsterCurrentHP <= 0) {
+    monsterStore.monsterCurrentHP = 0;
+  }
 }
 
 function playerLoses() {
@@ -161,14 +161,9 @@ function checkNextFloor() {
   if (playerStore.monsterCount > 15) {
     playerStore.floor += 1;
     playerStore.monsterCount = 1;
-
-    inventoryStore.addItemToInventory();
-  }
-}
-function checkIfPlayerGetsLoot() {
-  let diceRoll = getRandomNumber(1, 100);
-  if (diceRoll >= 80) {
-    inventoryStore.addItemToInventory();
+    playerStore.getNewWeapon();
+    playerStore.totalDamagePerSec();
+    playerStore.totalDamagePerClick();
   }
 }
 
@@ -179,16 +174,9 @@ function addMoneyToPlayer() {
   );
 }
 
-function checkInventoryFull() {
-  if (inventoryStore.playerInventory.length === 30) {
-    alert("Your inventory is full! You can't pick up any more items.");
-    // stopBattle();
-  }
-}
-
 function checkGameEnd() {
   if (playerStore.floor >= 100) {
-    // stopBattle();
+    stopBattle();
     alert("You have reached the end of the game! Congratulations!");
     alert(`You have reached level ${playerStore.playerLevel}!`);
     router.push("/");
@@ -197,11 +185,11 @@ function checkGameEnd() {
 
 battle();
 
-// function stopBattle() {
-//   battleStarted.value = false;
-//   battleEnded.value = true;
-//   clearInterval(combat);
-// }
+function stopBattle() {
+  monsterDied.value = true;
+  clearInterval(combat);
+  clearInterval(timerBoss);
+}
 </script>
 
 <style scoped>
