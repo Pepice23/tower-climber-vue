@@ -13,11 +13,15 @@
     <div class="row m-2">
       <div class="col m-2">
         <button
-          class="btn btn-primary attack-button"
+          class="btn btn-dark"
           @click="playerAttack"
           :disabled="monsterDied"
         >
-          ATTACK!
+          <img
+            src="/assets/UI/attack-button.png"
+            alt="attack button"
+            class="attack-button"
+          />
         </button>
       </div>
     </div>
