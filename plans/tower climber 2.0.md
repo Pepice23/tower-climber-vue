@@ -2,7 +2,7 @@
 
 ## A játék
 
-- A játékos nem hal meg, nem lesz defense csak damage-e
+- A játékos nem hal meg, nem lesz defense-e csak damage-e
 - A szörnynek nem lesz se attackja se defense csak HP-ja
 - A támadás inkább klikker alapon
   történik Minden 10 szint végén van egy timed boss, ha nem sikerül
