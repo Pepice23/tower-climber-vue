@@ -14,8 +14,8 @@
       <div class="col m-2">
         <button
           class="btn btn-primary attack-button"
-          @click="startBattle"
-          :disabled="battleStarted"
+          @click="playerAttack"
+          :disabled="monsterDied"
         >
           ATTACK!
         </button>
@@ -62,8 +62,7 @@ const fileOperationsStore = useFileOperationsStore();
 const playerStore = usePlayerStore();
 const inventoryStore = useInventoryStore();
 
-const battleStarted = ref(false);
-const battleEnded = ref(true);
+const monsterDied = ref(false);
 
 let combat;
 let timerBoss;
@@ -79,16 +78,9 @@ function battle() {
   if (playerStore.monsterCount < 15) {
     combat = setInterval(() => {
       monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
+
       if (monsterStore.monsterCurrentHP <= 0) {
-        clearInterval(combat);
-        playerWins();
-        setTimeout(() => {
-          monsterStore.setUpMonster();
-          monsterStore.monsterVisible = true;
-          playerStore.playerVisible = true;
-          playerStore.outcome = "";
-          battle();
-        }, 1000);
+        newNormalBattleSetup();
       }
     }, 1000);
   }
@@ -97,33 +89,47 @@ function battle() {
       playerStore.bossTimer -= 1;
       monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
       if (playerStore.bossTimer <= 0 && monsterStore.monsterCurrentHP > 0) {
+        monsterDied.value = true;
         clearInterval(timerBoss);
         playerLoses();
-        setTimeout(() => {
-          monsterStore.setUpMonster();
-          monsterStore.monsterVisible = true;
-          playerStore.playerVisible = true;
-          playerStore.outcome = "";
-          playerStore.bossTimer = 30;
-          battle();
-        }, 1000);
+        afterBossBattleSetup();
       } else if (
         playerStore.bossTimer > 0 &&
         monsterStore.monsterCurrentHP <= 0
       ) {
+        monsterDied.value = true;
         clearInterval(timerBoss);
         playerWins();
-        setTimeout(() => {
-          monsterStore.setUpMonster();
-          monsterStore.monsterVisible = true;
-          playerStore.playerVisible = true;
-          playerStore.outcome = "";
-          playerStore.bossTimer = 30;
-          battle();
-        }, 1000);
+        afterBossBattleSetup();
       }
     }, 1000);
   }
+}
+
+function newNormalBattleSetup() {
+  monsterDied.value = true;
+  clearInterval(combat);
+  playerWins();
+  setTimeout(() => {
+    monsterStore.setUpMonster();
+    monsterStore.monsterVisible = true;
+    playerStore.playerVisible = true;
+    playerStore.outcome = "";
+    battle();
+    monsterDied.value = false;
+  }, 1000);
+}
+
+function afterBossBattleSetup() {
+  setTimeout(() => {
+    monsterStore.setUpMonster();
+    monsterStore.monsterVisible = true;
+    playerStore.playerVisible = true;
+    playerStore.outcome = "";
+    playerStore.bossTimer = 30;
+    battle();
+    monsterDied.value = false;
+  }, 1000);
 }
 
 function playerWins() {
@@ -138,6 +144,10 @@ function playerWins() {
   addMoneyToPlayer();
   // checkInventoryFull();
   checkGameEnd();
+}
+
+function playerAttack() {
+  monsterStore.monsterCurrentHP -= playerStore.playerDamagePerClick;
 }
 
 function playerLoses() {
@@ -196,7 +206,7 @@ battle();
 
 <style scoped>
 .attack-button {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
 }
 </style>
