@@ -19,9 +19,10 @@ export const usePlayerStore = defineStore("player", {
     itemStartId: 0,
     hasSavedGame: false,
     outcome: "",
-    background: "/assets/background/bg-2.png",
+    background: "/assets/background/bg-1.png",
     bossTimer: 30,
     bossTimerMax: 30,
+    itemLog: "",
   }),
   actions: {
     totalDamagePerSec() {
@@ -61,11 +62,18 @@ export const usePlayerStore = defineStore("player", {
         item.equipmentPerClickDamage >
           equipmentStore.weapon.equipmentPerClickDamage
       ) {
+        this.itemLog = `You found a ${item.equipmentName}! It is better than your current weapon!`;
         equipmentStore.weapon = item;
         this.totalDamagePerClick();
         this.totalDamagePerSec();
+      } else {
+        this.itemLog = `You found a ${item.equipmentName}! It is not better than your current weapon! You sold it for ${item.price} gold.`;
+        this.money += item.price;
       }
       this.itemStartId += 1;
+    },
+    chooseRandomBackground() {
+      this.background = `/assets/background/bg-${getRandomNumber(1, 57)}.png`;
     },
   },
 });
