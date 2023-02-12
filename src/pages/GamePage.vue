@@ -35,7 +35,9 @@
         </div>
       </div>
     </div>
-    <div class="col"></div>
+    <div class="col">
+      <ItemLog />
+    </div>
   </div>
 </template>
 
@@ -55,6 +57,7 @@ import { getRandomNumber } from "../helpers/playerHelper.js";
 
 import router from "../router/index.js";
 import CombatScreen from "../components/game/CombatScreen.vue";
+import ItemLog from "../components/player/ItemLog.vue";
 
 const monsterStore = useMonsterStore();
 monsterStore.setRandomMonsterAvatar();
@@ -118,7 +121,8 @@ function newNormalBattleSetup() {
     playerStore.outcome = "";
     battle();
     monsterDied.value = false;
-  }, 1000);
+    playerStore.itemLog = "";
+  }, 1200);
 }
 
 function afterBossBattleSetup() {
@@ -130,7 +134,8 @@ function afterBossBattleSetup() {
     playerStore.bossTimer = 30;
     battle();
     monsterDied.value = false;
-  }, 1000);
+    playerStore.itemLog = "";
+  }, 1200);
 }
 
 function playerWins() {
@@ -141,9 +146,8 @@ function playerWins() {
   playerStore.calculateXP();
   playerStore.checkLevelUp();
   checkNextFloor();
-  // checkIfPlayerGetsLoot();
+  checkIfPlayerGetsLoot();
   addMoneyToPlayer();
-  // checkInventoryFull();
   checkGameEnd();
 }
 
@@ -165,9 +169,21 @@ function checkNextFloor() {
   if (playerStore.monsterCount > 15) {
     playerStore.floor += 1;
     playerStore.monsterCount = 1;
-    playerStore.getNewWeapon();
-    playerStore.totalDamagePerSec();
-    playerStore.totalDamagePerClick();
+    playerGetsNewWeapon();
+    playerStore.chooseRandomBackground();
+  }
+}
+
+function playerGetsNewWeapon() {
+  playerStore.getNewWeapon();
+  playerStore.totalDamagePerSec();
+  playerStore.totalDamagePerClick();
+}
+
+function checkIfPlayerGetsLoot() {
+  const diceRoll = getRandomNumber(1, 100);
+  if (diceRoll >= 80) {
+    playerGetsNewWeapon();
   }
 }
 
