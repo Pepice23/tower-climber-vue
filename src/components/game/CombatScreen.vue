@@ -9,7 +9,7 @@
     <div class="col m-2">
       <MonsterCard />
       <div v-if="playerStore.monsterCount === 15">
-        <h3>Time remaining:</h3>
+        <h3 class="text-white">Time remaining:</h3>
         <BossTimer />
       </div>
     </div>
