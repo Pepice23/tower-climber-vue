@@ -1,9 +1,10 @@
 <template>
   <div class="row m-2 equipment-border box-size">
     <div class="col">
-      <div class="row">
+      <div class="row m-2">
         <div class="col">
           <h3>Armor Name: {{ props.armor.name }}</h3>
+          <h3>Available from floor: {{ props.armor.availableFromFloor }}</h3>
           <img
             :src="props.armor.imagePath"
             :alt="props.armor.name"
@@ -18,7 +19,7 @@
         <div class="col">
           <h3>Ores To Craft: {{ props.armor.oresToCraft }}</h3>
           <h3>
-            Ore Price:
+            Total Ore Price:
             {{ props.armor.oresToCraft * 10 * props.armor.dmgMultiplier }}
           </h3>
           <button class="btn btn-primary">Buy Ores</button>
@@ -27,7 +28,9 @@
       <div class="row">
         <div class="col">
           <h2>Crafting</h2>
-          <button class="btn btn-primary">Craft Armor</button>
+          <button class="btn btn-primary" @click="craftArmor(props.armor)">
+            Craft Armor
+          </button>
         </div>
       </div>
     </div>
@@ -36,6 +39,7 @@
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore.js";
+import { useEquipmentStore } from "../../stores/equipmentStore.js";
 
 const props = defineProps({
   armor: {
@@ -44,6 +48,11 @@ const props = defineProps({
   },
 });
 const playerStore = usePlayerStore();
+const equipmentStore = useEquipmentStore();
+
+function craftArmor(armor) {
+  equipmentStore.armor = armor;
+}
 </script>
 
 <style scoped>
@@ -56,6 +65,6 @@ const playerStore = usePlayerStore();
 }
 .box-size {
   width: 400px;
-  height: 520px;
+  height: 600px;
 }
 </style>
