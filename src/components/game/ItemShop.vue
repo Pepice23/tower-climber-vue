@@ -19,7 +19,6 @@
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
-import ArmorShop from "./ArmorShop.vue";
 
 const playerStore = usePlayerStore();
 
