@@ -13,6 +13,14 @@ export const useEquipmentStore = defineStore("equipment", {
       defPercent: 0,
       picturePath: "",
     },
+    armor: {
+      armorName: "Armor",
+      availableFromLevel: 0,
+      price: 0,
+      oresToCraft: 0,
+      imagePath: "",
+      dmgMultiplier: 0,
+    },
   }),
   actions: {},
 });

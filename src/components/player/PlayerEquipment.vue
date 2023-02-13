@@ -14,6 +14,16 @@
           :picturePath="equipmentStore.weapon.picturePath"
         />
       </div>
+      <div class="row">
+        <ArmorCard
+          :armorName="equipmentStore.armor.equipmentName"
+          :availableFromLevel="equipmentStore.armor.equipmentLevel"
+          :oresToCraft="equipmentStore.armor.oresToCraft"
+          :price="equipmentStore.armor.price"
+          :dmgMultiplier="equipmentStore.armor.dmgMultiplier"
+          :picturePath="equipmentStore.armor.picturePath"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +31,7 @@
 <script setup>
 import EquipmentCard from "./EquipmentCard.vue";
 import { useEquipmentStore } from "../../stores/equipmentStore";
+import ArmorCard from "./ArmorCard.vue";
 const equipmentStore = useEquipmentStore();
 </script>
 
