@@ -27,11 +27,12 @@ export const usePlayerStore = defineStore("player", {
   actions: {
     totalDamagePerSec() {
       const equipmentStore = useEquipmentStore();
-      this.playerDamagePerSecond = equipmentStore.weapon.equipmentPerSecDamage;
+      this.playerDamagePerSecond += equipmentStore.weapon.equipmentPerSecDamage;
     },
     totalDamagePerClick() {
       const equipmentStore = useEquipmentStore();
-      this.playerDamagePerClick = equipmentStore.weapon.equipmentPerClickDamage;
+      this.playerDamagePerClick +=
+        equipmentStore.weapon.equipmentPerClickDamage;
     },
     subtractMoney(amount) {
       this.money -= amount;

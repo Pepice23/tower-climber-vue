@@ -39,6 +39,9 @@
       <ItemLog />
     </div>
   </div>
+  <div class="row">
+    <ArmorShop />
+  </div>
 </template>
 
 <script setup>
@@ -58,6 +61,7 @@ import { getRandomNumber } from "../helpers/playerHelper.js";
 import router from "../router/index.js";
 import CombatScreen from "../components/game/CombatScreen.vue";
 import ItemLog from "../components/player/ItemLog.vue";
+import ArmorShop from "../components/game/ArmorShop.vue";
 
 const monsterStore = useMonsterStore();
 monsterStore.setRandomMonsterAvatar();
@@ -176,8 +180,6 @@ function checkNextFloor() {
 
 function playerGetsNewWeapon() {
   playerStore.getNewWeapon();
-  playerStore.totalDamagePerSec();
-  playerStore.totalDamagePerClick();
 }
 
 function checkIfPlayerGetsLoot() {
