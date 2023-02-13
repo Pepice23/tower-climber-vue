@@ -6,7 +6,7 @@
       </div>
       <div class="col">
         <h6>{{ armorName }}</h6>
-        <h6>Level:{{ availableFromLevel }}</h6>
+        <h6>Level:{{ availableFromFloor }}</h6>
         <h6>Ores To Craft:{{ oresToCraft }}</h6>
         <h6>Price:{{ price }}</h6>
         <h6>Damage Multiplier:{{ dmgMultiplier }}</h6>
@@ -18,7 +18,7 @@
 <script setup>
 defineProps({
   armorName: String,
-  availableFromLevel: Number,
+  availableFromFloor: Number,
   oresToCraft: Number,
   price: Number,
   dmgMultiplier: Number,
