@@ -66,6 +66,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
           JSON.stringify({
             equipment: {
               weapon: equipmentStore.weapon,
+              armor: equipmentStore.armor,
             },
           }),
           {
@@ -87,6 +88,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
         );
         const equipmentJson = JSON.parse(equipment);
         equipmentStore.weapon = equipmentJson.equipment.weapon;
+        equipmentStore.armor = equipmentJson.equipment.armor;
       } catch (e) {
         console.error(e);
       }
