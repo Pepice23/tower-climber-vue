@@ -36,7 +36,6 @@
   8. Zirhemite
   9. Conclaite
 - Több fajta ellenség
-- 10 egyedi big baws
-- 20 egyedi weapon
+
 
 [//]: # "almost a hero"
