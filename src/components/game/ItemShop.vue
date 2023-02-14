@@ -1,6 +1,6 @@
 <template>
   <div class="col m-2">
-    <h1>Shop</h1>
+    <h1>Weapon Shop</h1>
     <div class="row">
       <div class="col">
         <button
