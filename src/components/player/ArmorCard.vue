@@ -19,7 +19,6 @@
 <script setup>
 import { useEquipmentStore } from "../../stores/equipmentStore.js";
 const equipmentStore = useEquipmentStore();
-console.log(equipmentStore.armor);
 </script>
 
 <style scoped>
