@@ -7,8 +7,8 @@ import { generateRandomItem } from "../helpers/itemCreator.js";
 export const usePlayerStore = defineStore("player", {
   state: () => ({
     playerVisible: true,
-    playerDamagePerClick: 50,
-    playerDamagePerSecond: 200,
+    playerDamagePerClick: 10,
+    playerDamagePerSecond: 10,
     playerLevel: 1,
     money: 12000,
     floor: 1,
@@ -27,12 +27,27 @@ export const usePlayerStore = defineStore("player", {
   actions: {
     totalDamagePerSec() {
       const equipmentStore = useEquipmentStore();
-      this.playerDamagePerSecond += equipmentStore.weapon.equipmentPerSecDamage;
+      if (equipmentStore.armor.dmgMultiplier > 0) {
+        this.playerDamagePerSecond =
+          equipmentStore.weapon.equipmentPerSecDamage *
+            equipmentStore.armor.dmgMultiplier +
+          this.playerLevel * 5;
+      } else {
+        this.playerDamagePerSecond =
+          equipmentStore.weapon.equipmentPerSecDamage + this.playerLevel * 5;
+      }
     },
     totalDamagePerClick() {
       const equipmentStore = useEquipmentStore();
-      this.playerDamagePerClick +=
-        equipmentStore.weapon.equipmentPerClickDamage;
+      if (equipmentStore.armor.dmgMultiplier > 0) {
+        this.playerDamagePerClick =
+          equipmentStore.weapon.equipmentPerClickDamage *
+            equipmentStore.armor.dmgMultiplier +
+          this.playerLevel * 5;
+      } else {
+        this.playerDamagePerClick =
+          equipmentStore.weapon.equipmentPerClickDamage + this.playerLevel * 5;
+      }
     },
     subtractMoney(amount) {
       this.money -= amount;
@@ -40,8 +55,6 @@ export const usePlayerStore = defineStore("player", {
     checkLevelUp() {
       if (this.currentXP >= this.nextLevelXP) {
         this.playerLevel += 1;
-        this.playerDamagePerSecond += 5;
-        this.playerDamagePerClick += 5;
         if (this.currentXP >= this.nextLevelXP) {
           this.currentXP = this.currentXP - this.nextLevelXP;
         }
