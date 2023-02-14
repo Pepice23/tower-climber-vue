@@ -10,7 +10,7 @@ export const usePlayerStore = defineStore("player", {
     playerDamagePerClick: 10,
     playerDamagePerSecond: 10,
     playerLevel: 1,
-    money: 12000,
+    money: 2000,
     floor: 1,
     monsterCount: 1,
     currentXP: 0,
@@ -77,12 +77,18 @@ export const usePlayerStore = defineStore("player", {
           equipmentStore.weapon.equipmentPerClickDamage
       ) {
         this.itemLog = `You found a ${item.equipmentName}! It is better than your current weapon!`;
-        equipmentStore.weapon = item;
-        this.totalDamagePerClick();
-        this.totalDamagePerSec();
+        setTimeout(() => {
+          equipmentStore.weapon = item;
+          this.totalDamagePerClick();
+          this.totalDamagePerSec();
+          this.itemLog = "";
+        }, 3000);
       } else {
         this.itemLog = `You found a ${item.equipmentName}! It is not better than your current weapon! You sold it for ${item.price} gold.`;
         this.money += item.price;
+        setTimeout(() => {
+          this.itemLog = "";
+        }, 3000);
       }
       this.itemStartId += 1;
     },
