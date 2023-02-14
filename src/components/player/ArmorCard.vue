@@ -1,5 +1,5 @@
 <template>
-  <div class="col m-2 equipment-border text-white">
+  <div class="col m-2 equipment-border text-black">
     <div class="row">
       <div class="col">
         <img
