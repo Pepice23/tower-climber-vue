@@ -15,14 +15,7 @@
         />
       </div>
       <div class="row">
-        <ArmorCard
-          :armorName="equipmentStore.armor.equipmentName"
-          :availableFromLevel="equipmentStore.armor.equipmentLevel"
-          :oresToCraft="equipmentStore.armor.oresToCraft"
-          :price="equipmentStore.armor.price"
-          :dmgMultiplier="equipmentStore.armor.dmgMultiplier"
-          :picturePath="equipmentStore.armor.picturePath"
-        />
+        <ArmorCard />
       </div>
     </div>
   </div>

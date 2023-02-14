@@ -14,10 +14,7 @@ export const useEquipmentStore = defineStore("equipment", {
       picturePath: "",
     },
     armor: {
-      armorName: "Armor",
-      availableFromFloor: 0,
-      price: 0,
-      oresToCraft: 0,
+      name: "Armor",
       imagePath: "",
       dmgMultiplier: 0,
     },

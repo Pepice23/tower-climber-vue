@@ -2,28 +2,24 @@
   <div class="col m-2 equipment-border text-white">
     <div class="row">
       <div class="col">
-        <img :src="picturePath" :alt="armorName" class="picture-size m-2" />
+        <img
+          :src="equipmentStore.armor.imagePath"
+          :alt="equipmentStore.armor.name"
+          class="picture-size m-2"
+        />
       </div>
       <div class="col">
-        <h6>{{ armorName }}</h6>
-        <h6>Level:{{ availableFromFloor }}</h6>
-        <h6>Ores To Craft:{{ oresToCraft }}</h6>
-        <h6>Price:{{ price }}</h6>
-        <h6>Damage Multiplier:{{ dmgMultiplier }}</h6>
+        <h3>{{ equipmentStore.armor.name }}</h3>
+        <h3>Damage Multiplier:{{ equipmentStore.armor.dmgMultiplier }}</h3>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-defineProps({
-  armorName: String,
-  availableFromFloor: Number,
-  oresToCraft: Number,
-  price: Number,
-  dmgMultiplier: Number,
-  picturePath: String,
-});
+import { useEquipmentStore } from "../../stores/equipmentStore.js";
+const equipmentStore = useEquipmentStore();
+console.log(equipmentStore.armor);
 </script>
 
 <style scoped>

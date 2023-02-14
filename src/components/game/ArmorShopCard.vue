@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col">
           <h2>Crafting</h2>
-          <button class="btn btn-primary" @click="craftArmor(props.armor)">
+          <button class="btn btn-primary" @click="craftArmor(armor)">
             Craft Armor
           </button>
         </div>
@@ -47,11 +47,13 @@ const props = defineProps({
     required: true,
   },
 });
+
 const playerStore = usePlayerStore();
 const equipmentStore = useEquipmentStore();
 
 function craftArmor(armor) {
   equipmentStore.armor = armor;
+  console.log(equipmentStore.armor);
 }
 </script>
 
