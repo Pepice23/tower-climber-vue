@@ -31,8 +31,8 @@
             class="btn btn-primary"
             @click="craftArmor(armor)"
             :disabled="
-              (totalPrice > playerStore.money &&
-                equipmentStore.armor === armor) ||
+              totalPrice > playerStore.money ||
+              equipmentStore.armor === armor ||
               equipmentStore.armor.dmgMultiplier >= armor.dmgMultiplier
             "
           >
