@@ -55,6 +55,8 @@ export const usePlayerStore = defineStore("player", {
     checkLevelUp() {
       if (this.currentXP >= this.nextLevelXP) {
         this.playerLevel += 1;
+        this.totalDamagePerClick();
+        this.totalDamagePerSec();
         if (this.currentXP >= this.nextLevelXP) {
           this.currentXP = this.currentXP - this.nextLevelXP;
         }
@@ -77,10 +79,10 @@ export const usePlayerStore = defineStore("player", {
           equipmentStore.weapon.equipmentPerClickDamage
       ) {
         this.itemLog = `You found a ${item.equipmentName}! It is better than your current weapon!`;
+        equipmentStore.weapon = item;
+        this.totalDamagePerClick();
+        this.totalDamagePerSec();
         setTimeout(() => {
-          equipmentStore.weapon = item;
-          this.totalDamagePerClick();
-          this.totalDamagePerSec();
           this.itemLog = "";
         }, 3000);
       } else {
