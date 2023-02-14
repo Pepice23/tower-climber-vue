@@ -12,7 +12,6 @@
           />
           <h3>Damage Multiplier: {{ props.armor.dmgMultiplier }}x</h3>
           <h3>Armor Recipe Price: {{ props.armor.price }}</h3>
-          <button class="btn btn-primary">Buy Armor Recipe</button>
         </div>
       </div>
       <div class="row">
@@ -22,13 +21,21 @@
             Total Ore Price:
             {{ props.armor.oresToCraft * 10 * props.armor.dmgMultiplier }}
           </h3>
-          <button class="btn btn-primary">Buy Ores</button>
         </div>
       </div>
-      <div class="row">
+      <div class="row m-2">
         <div class="col">
           <h2>Crafting</h2>
-          <button class="btn btn-primary" @click="craftArmor(armor)">
+          <h3>Total price: {{ totalPrice }}</h3>
+          <button
+            class="btn btn-primary"
+            @click="craftArmor(armor)"
+            :disabled="
+              (totalPrice > playerStore.money &&
+                equipmentStore.armor === armor) ||
+              equipmentStore.armor.dmgMultiplier >= armor.dmgMultiplier
+            "
+          >
             Craft Armor
           </button>
         </div>
@@ -40,6 +47,7 @@
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore.js";
 import { useEquipmentStore } from "../../stores/equipmentStore.js";
+import { computed } from "vue";
 
 const props = defineProps({
   armor: {
@@ -50,8 +58,14 @@ const props = defineProps({
 
 const playerStore = usePlayerStore();
 const equipmentStore = useEquipmentStore();
+const totalPrice = computed(() => {
+  return (
+    props.armor.oresToCraft * 10 * props.armor.dmgMultiplier + props.armor.price
+  );
+});
 
 function craftArmor(armor) {
+  playerStore.money -= totalPrice.value;
   equipmentStore.armor = armor;
   playerStore.totalDamagePerClick();
   playerStore.totalDamagePerSec();
