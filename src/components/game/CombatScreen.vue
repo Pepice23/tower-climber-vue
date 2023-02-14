@@ -3,7 +3,7 @@
     <div class="col">
       <CharacterCard />
     </div>
-    <div class="col">
+    <div class="col text-white">
       <h1>{{ playerStore.outcome }}</h1>
     </div>
     <div class="col m-2">
