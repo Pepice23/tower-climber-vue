@@ -125,8 +125,7 @@ function newNormalBattleSetup() {
     playerStore.outcome = "";
     battle();
     monsterDied.value = false;
-    playerStore.itemLog = "";
-  }, 1200);
+  }, 1000);
 }
 
 function afterBossBattleSetup() {
@@ -138,8 +137,7 @@ function afterBossBattleSetup() {
     playerStore.bossTimer = 30;
     battle();
     monsterDied.value = false;
-    playerStore.itemLog = "";
-  }, 1200);
+  }, 1000);
 }
 
 function playerWins() {
