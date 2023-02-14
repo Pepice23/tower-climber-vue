@@ -53,7 +53,8 @@ const equipmentStore = useEquipmentStore();
 
 function craftArmor(armor) {
   equipmentStore.armor = armor;
-  console.log(equipmentStore.armor);
+  playerStore.totalDamagePerClick();
+  playerStore.totalDamagePerSec();
 }
 </script>
 
