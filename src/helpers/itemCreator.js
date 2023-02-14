@@ -58,7 +58,7 @@ function getRandomRarity() {
 }
 
 function generateRandomStat(quality, level) {
-  const base = 1500;
+  const base = 3000;
   if (level >= 1 && level <= 10) {
     let percent = getRandomNumber(1, 10) + quality;
     return Math.floor((base * percent) / 100);
@@ -108,8 +108,4 @@ function diceRoll() {
 function getRandomPicture(basePath, availableImages) {
   const randomImage = getRandomNumber(1, availableImages);
   return `${basePath}${randomImage}.jpeg`;
-}
-
-for (let i = 0; i < 10; i++) {
-  console.log(generateRandomItem(1));
 }
