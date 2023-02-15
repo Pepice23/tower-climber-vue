@@ -181,10 +181,7 @@ function playerGetsNewWeapon() {
 }
 
 function checkIfPlayerGetsLoot() {
-  const diceRoll = getRandomNumber(1, 100);
-  if (diceRoll >= 80) {
-    playerGetsNewWeapon();
-  }
+  playerGetsNewWeapon();
 }
 
 function addMoneyToPlayer() {

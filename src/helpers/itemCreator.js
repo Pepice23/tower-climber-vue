@@ -58,46 +58,35 @@ function getRandomRarity() {
 }
 
 function generateRandomStat(quality, level) {
-  const base = 3000;
   if (level >= 1 && level <= 10) {
-    let percent = getRandomNumber(1, 10) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(1, 10) + quality, quality);
   }
   if (level >= 11 && level <= 20) {
-    let percent = getRandomNumber(11, 20) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(11, 20) + quality, quality);
   }
   if (level >= 21 && level <= 30) {
-    let percent = getRandomNumber(21, 30) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(21, 30) + quality, quality);
   }
   if (level >= 31 && level <= 40) {
-    let percent = getRandomNumber(31, 40) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(31, 40) + quality, quality);
   }
   if (level >= 41 && level <= 50) {
-    let percent = getRandomNumber(41, 50) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(41, 50) + quality, quality);
   }
   if (level >= 51 && level <= 60) {
-    let percent = getRandomNumber(51, 60) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(51, 60) + quality, quality);
   }
   if (level >= 61 && level <= 70) {
-    let percent = getRandomNumber(61, 70) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(61, 70) + quality, quality);
   }
   if (level >= 71 && level <= 80) {
-    let percent = getRandomNumber(71, 80) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(71, 80) + quality, quality);
   }
   if (level >= 81 && level <= 90) {
-    let percent = getRandomNumber(81, 90) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(81, 90) + quality, quality);
   }
   if (level >= 91) {
-    let percent = getRandomNumber(91, 100) + quality;
-    return Math.floor((base * percent) / 100);
+    return Math.pow(getRandomNumber(91, 100) + quality, quality);
   }
 }
 

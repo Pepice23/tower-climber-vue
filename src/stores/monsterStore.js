@@ -18,7 +18,8 @@ export const useMonsterStore = defineStore("monster", {
     },
     setMonsterHP() {
       const playerStore = usePlayerStore();
-      this.monsterMaxHP = playerStore.floor * playerStore.monsterCount * 100;
+      this.monsterMaxHP =
+        Math.pow(playerStore.floor, playerStore.monsterCount) + 100;
       this.monsterCurrentHP = this.monsterMaxHP;
     },
     setUpMonster() {
