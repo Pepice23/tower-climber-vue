@@ -6,8 +6,14 @@
       :alt="playerStore.avatar.name"
       class="picture-size m-2"
     />
-    <h3>Damage per Click: {{ playerStore.playerDamagePerClick }}</h3>
-    <h3>Damage per Second: {{ playerStore.playerDamagePerSecond }}</h3>
+    <h3>
+      Damage per Click:
+      {{ numberFormatter.format(playerStore.playerDamagePerClick) }}
+    </h3>
+    <h3>
+      Damage per Second:
+      {{ numberFormatter.format(playerStore.playerDamagePerSecond) }}
+    </h3>
     <XPBar />
   </div>
 </template>
@@ -15,6 +21,7 @@
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
 import XPBar from "./XPBar.vue";
+import { numberFormatter } from "../../helpers/playerHelper.js";
 
 const playerStore = usePlayerStore();
 </script>

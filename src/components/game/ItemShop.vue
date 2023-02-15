@@ -10,8 +10,10 @@
         >
           Buy Item
         </button>
-        <h3>Item price: 2000 gold</h3>
-        <h3>Hero's money: {{ playerStore.money }} gold</h3>
+        <h3>Item price: 2K gold</h3>
+        <h3>
+          Hero's money: {{ numberFormatter.format(playerStore.money) }} gold
+        </h3>
       </div>
     </div>
   </div>
@@ -19,6 +21,7 @@
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
+import { numberFormatter } from "../../helpers/playerHelper.js";
 
 const playerStore = usePlayerStore();
 

@@ -12,13 +12,14 @@
       aria-valuemax="100"
     ></div>
     <h5 class="justify-content-center d-flex position-absolute w-100">
-      HP: {{ monsterStore.monsterCurrentHP }}
+      HP: {{ numberFormatter.format(monsterStore.monsterCurrentHP) }}
     </h5>
   </div>
 </template>
 
 <script setup>
 import { useMonsterStore } from "../../stores/monsterStore.js";
+import { numberFormatter } from "../../helpers/playerHelper.js";
 const monsterStore = useMonsterStore();
 </script>
 

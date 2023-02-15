@@ -10,13 +10,16 @@
       aria-valuemax="100"
     ></div>
     <h5 class="justify-content-center d-flex position-absolute w-100">
-      XP: {{ playerStore.currentXP }}/{{ playerStore.nextLevelXP }}
+      XP: {{ numberFormatter.format(playerStore.currentXP) }}/{{
+        numberFormatter.format(playerStore.nextLevelXP)
+      }}
     </h5>
   </div>
 </template>
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
+import { numberFormatter } from "../../helpers/playerHelper.js";
 const playerStore = usePlayerStore();
 </script>
 

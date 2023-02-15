@@ -11,3 +11,7 @@ export const heroes = [
   { picturePath: "/assets/heroes/hero6.jpeg", name: "Hero 6" },
   { picturePath: "/assets/heroes/hero7.jpeg", name: "Hero 7" },
 ];
+
+export const numberFormatter = new Intl.NumberFormat("en-US", {
+  notation: "compact",
+});

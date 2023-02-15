@@ -16,14 +16,18 @@
       <div class="col">
         <h6>{{ equipmentName }}</h6>
         <h6>Level:{{ equipmentLevel }}</h6>
-        <h6>Damage/Click:{{ equipmentPerClickDamage }}</h6>
-        <h6>Damage/Sec:{{ equipmentPerSecDamage }}</h6>
+        <h6>
+          Damage/Click:{{ numberFormatter.format(equipmentPerClickDamage) }}
+        </h6>
+        <h6>Damage/Sec:{{ numberFormatter.format(equipmentPerSecDamage) }}</h6>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { numberFormatter } from "../../helpers/playerHelper.js";
+
 defineProps({
   equipmentName: String,
   equipmentLevel: Number,

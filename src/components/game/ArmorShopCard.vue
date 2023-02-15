@@ -11,22 +11,32 @@
             class="picture-size"
           />
           <h3>Damage:{{ props.armor.dmgMultiplier }}x</h3>
-          <h3>Recipe Price: {{ props.armor.price }}</h3>
+          <h3>
+            Recipe Price: {{ numberFormatter.format(props.armor.price) }} Gold
+          </h3>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <h3>Ores To Craft: {{ props.armor.oresToCraft }}</h3>
+          <h3>
+            Ores To Craft:
+            {{ numberFormatter.format(props.armor.oresToCraft) }}
+          </h3>
           <h3>
             Total Ore Price:
-            {{ props.armor.oresToCraft * 10 * props.armor.dmgMultiplier }}
+            {{
+              numberFormatter.format(
+                props.armor.oresToCraft * 10 * props.armor.dmgMultiplier
+              )
+            }}
+            Gold
           </h3>
         </div>
       </div>
       <div class="row m-2">
         <div class="col">
           <h1>Crafting</h1>
-          <h2>Total price: {{ totalPrice }}</h2>
+          <h2>Total price: {{ numberFormatter.format(totalPrice) }} Gold</h2>
         </div>
       </div>
       <div class="row m-2">
@@ -53,6 +63,7 @@ import { usePlayerStore } from "../../stores/playerStore.js";
 import { useEquipmentStore } from "../../stores/equipmentStore.js";
 import { computed } from "vue";
 import { useArmorStore } from "../../stores/armorStore.js";
+import { numberFormatter } from "../../helpers/playerHelper.js";
 
 const props = defineProps({
   armor: {
