@@ -1,11 +1,7 @@
 <template>
   <h1>Armor Shop</h1>
   <div class="col" v-for="armor in armors" :key="armor.name">
-    <ArmorShopCard
-      :armor="armor"
-      class="m-2"
-      v-if="armor.availableFromFloor <= playerStore.floor"
-    />
+    <ArmorShopCard :armor="armor" class="m-2" />
   </div>
 </template>
 

@@ -1,17 +1,23 @@
 <template>
-  <div class="row m-2 equipment-border box-size">
+  <div
+    class="row m-2 equipment-border box-size"
+    v-if="
+      props.armor.availableFromFloor >= playerStore.floor - 10 &&
+      props.armor.availableFromFloor <= playerStore.floor + 10
+    "
+  >
     <div class="col">
       <div class="row m-2">
         <div class="col">
-          <h3>Armor Name: {{ props.armor.name }}</h3>
+          <h3>{{ props.armor.name }}</h3>
           <h3>Available from floor: {{ props.armor.availableFromFloor }}</h3>
           <img
             :src="props.armor.imagePath"
             :alt="props.armor.name"
             class="picture-size"
           />
-          <h3>Damage Multiplier: {{ props.armor.dmgMultiplier }}x</h3>
-          <h3>Armor Recipe Price: {{ props.armor.price }}</h3>
+          <h3>Damage:{{ props.armor.dmgMultiplier }}x</h3>
+          <h3>Recipe Price: {{ props.armor.price }}</h3>
         </div>
       </div>
       <div class="row">
@@ -25,10 +31,14 @@
       </div>
       <div class="row m-2">
         <div class="col">
-          <h2>Crafting</h2>
-          <h3>Total price: {{ totalPrice }}</h3>
+          <h1>Crafting</h1>
+          <h2>Total price: {{ totalPrice }}</h2>
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col">
           <button
-            class="btn btn-primary"
+            class="btn btn-success w-75"
             @click="craftArmor(armor)"
             :disabled="
               totalPrice > playerStore.money ||
@@ -69,6 +79,7 @@ function craftArmor(armor) {
   equipmentStore.armor = armor;
   playerStore.totalDamagePerClick();
   playerStore.totalDamagePerSec();
+  props.armor.filter((a) => a.name !== armor.name);
 }
 </script>
 
