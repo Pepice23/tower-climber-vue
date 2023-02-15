@@ -8,6 +8,7 @@ import {
 } from "@tauri-apps/api/fs";
 import { usePlayerStore } from "./playerStore";
 import { useEquipmentStore } from "./equipmentStore";
+import { useArmorStore } from "./armorStore.js";
 
 export const useFileOperationsStore = defineStore("fileOperations", {
   state: () => ({}),
@@ -60,6 +61,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
     },
     async saveEquipmentToFile() {
       const equipmentStore = useEquipmentStore();
+      const armorStore = useArmorStore();
       try {
         await writeFile(
           "tower-climber/equipmentSave.json",
@@ -67,6 +69,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
             equipment: {
               weapon: equipmentStore.weapon,
               armor: equipmentStore.armor,
+              availableArmors: armorStore.armors,
             },
           }),
           {
@@ -79,6 +82,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
     },
     async loadEquipmentFromFile() {
       const equipmentStore = useEquipmentStore();
+      const armorStore = useArmorStore();
       try {
         const equipment = await readTextFile(
           "tower-climber/equipmentSave.json",
@@ -89,6 +93,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
         const equipmentJson = JSON.parse(equipment);
         equipmentStore.weapon = equipmentJson.equipment.weapon;
         equipmentStore.armor = equipmentJson.equipment.armor;
+        armorStore.armors = equipmentJson.equipment.availableArmors;
       } catch (e) {
         console.error(e);
       }

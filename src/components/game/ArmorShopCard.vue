@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="row m-2 equipment-border box-size"
-    v-if="
-      props.armor.availableFromFloor >= playerStore.floor - 10 &&
-      props.armor.availableFromFloor <= playerStore.floor + 10
-    "
-  >
+  <div class="row m-2 equipment-border box-size">
     <div class="col">
       <div class="row m-2">
         <div class="col">
@@ -58,6 +52,7 @@
 import { usePlayerStore } from "../../stores/playerStore.js";
 import { useEquipmentStore } from "../../stores/equipmentStore.js";
 import { computed } from "vue";
+import { useArmorStore } from "../../stores/armorStore.js";
 
 const props = defineProps({
   armor: {
@@ -68,6 +63,7 @@ const props = defineProps({
 
 const playerStore = usePlayerStore();
 const equipmentStore = useEquipmentStore();
+const armorStore = useArmorStore();
 const totalPrice = computed(() => {
   return (
     props.armor.oresToCraft * 10 * props.armor.dmgMultiplier + props.armor.price
@@ -79,7 +75,7 @@ function craftArmor(armor) {
   equipmentStore.armor = armor;
   playerStore.totalDamagePerClick();
   playerStore.totalDamagePerSec();
-  props.armor.filter((a) => a.name !== armor.name);
+  armorStore.filterArmor(armor);
 }
 </script>
 
