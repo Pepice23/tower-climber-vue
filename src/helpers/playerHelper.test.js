@@ -1,13 +1,21 @@
-import { it, expect } from "vitest";
+import { it, expect, describe } from "vitest";
 import { getRandomNumber, numberFormatter } from "./playerHelper.js";
 
-it("should choose a random number between the min and max", () => {
-  const result = getRandomNumber(1, 3);
-  expect(result).greaterThanOrEqual(1);
-  expect(result).lessThanOrEqual(3);
+describe("getRandomNumber()", () => {
+  it("should choose a random number between the min and max", () => {
+    const min = 1;
+    const max = 3;
+    const result = getRandomNumber(min, max);
+    expect(result).greaterThanOrEqual(min);
+    expect(result).lessThanOrEqual(max);
+    expect(result).not.lessThan(min);
+    expect(result).not.greaterThan(max);
+  });
 });
 
-it("should format numbers", () => {
-  const result = numberFormatter.format(1000);
-  expect(result).equal("1K");
+describe("numberFormatter()", () => {
+  it("should format numbers", () => {
+    const result = numberFormatter.format(1000);
+    expect(result).equal("1K");
+  });
 });
