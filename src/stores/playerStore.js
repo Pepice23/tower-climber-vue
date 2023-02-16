@@ -3,6 +3,7 @@ import { useEquipmentStore } from "./equipmentStore.js";
 
 import { getRandomNumber } from "../helpers/playerHelper.js";
 import { generateRandomItem } from "../helpers/itemCreator.js";
+import { useMonsterStore } from "./monsterStore.js";
 
 export const usePlayerStore = defineStore("player", {
   state: () => ({
@@ -104,11 +105,15 @@ export const usePlayerStore = defineStore("player", {
       this.background = `/assets/background/bg-${getRandomNumber(1, 57)}.png`;
     },
     checkNextFloor() {
+      const monsterStore = useMonsterStore();
       if (this.monsterCount > 15) {
         this.floor += 1;
         this.monsterCount = 1;
         this.getNewWeapon();
         this.chooseRandomBackground();
+        if (this.floor % 10 === 0) {
+          monsterStore.baseMonsterHP -= 0.01;
+        }
       }
     },
     checkIfPlayerGetsLoot() {

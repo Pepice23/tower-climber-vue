@@ -9,6 +9,7 @@ export const useMonsterStore = defineStore("monster", {
     monsterAvatar: "",
     monsterVisible: true,
     totalMonster: 1,
+    baseMonsterHP: 1.12,
   }),
   actions: {
     setRandomMonsterAvatar() {
@@ -18,7 +19,9 @@ export const useMonsterStore = defineStore("monster", {
       )}.jpeg`;
     },
     setMonsterHP() {
-      this.monsterMaxHP = Math.floor(Math.pow(1.12, this.totalMonster));
+      this.monsterMaxHP = Math.floor(
+        Math.pow(this.baseMonsterHP, this.totalMonster)
+      );
       this.monsterCurrentHP = this.monsterMaxHP;
     },
     setUpMonster() {
