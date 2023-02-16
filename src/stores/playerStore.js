@@ -52,6 +52,12 @@ export const usePlayerStore = defineStore("player", {
     subtractMoney(amount) {
       this.money -= amount;
     },
+    addMoney() {
+      this.money += getRandomNumber(
+        this.floor * this.monsterCount,
+        this.floor * this.monsterCount * 2
+      );
+    },
     checkLevelUp() {
       if (this.currentXP >= this.nextLevelXP) {
         this.playerLevel += 1;
@@ -96,6 +102,20 @@ export const usePlayerStore = defineStore("player", {
     },
     chooseRandomBackground() {
       this.background = `/assets/background/bg-${getRandomNumber(1, 57)}.png`;
+    },
+    checkNextFloor() {
+      if (this.monsterCount > 15) {
+        this.floor += 1;
+        this.monsterCount = 1;
+        this.getNewWeapon();
+        this.chooseRandomBackground();
+      }
+    },
+    checkIfPlayerGetsLoot() {
+      const roll = getRandomNumber(1, 100);
+      if (roll >= 80) {
+        this.getNewWeapon();
+      }
     },
   },
 });

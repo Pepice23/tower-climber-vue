@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { useMonsterStore } from "./monsterStore.js";
 import { usePlayerStore } from "./playerStore.js";
-import { getRandomNumber } from "../helpers/playerHelper.js";
 import router from "../router/index.js";
 
 export const useBattleStore = defineStore("battle", {
@@ -78,9 +77,9 @@ export const useBattleStore = defineStore("battle", {
       monsterStore.totalMonster += 1;
       playerStore.calculateXP();
       playerStore.checkLevelUp();
-      this.checkNextFloor();
-      this.checkIfPlayerGetsLoot();
-      this.addMoneyToPlayer();
+      playerStore.checkNextFloor();
+      playerStore.checkIfPlayerGetsLoot();
+      playerStore.addMoney();
       monsterStore.checkTotalMonster();
       this.checkGameEnd();
     },
@@ -94,32 +93,7 @@ export const useBattleStore = defineStore("battle", {
       playerStore.monsterCount = 1;
       monsterStore.checkTotalMonster();
     },
-    checkNextFloor() {
-      const playerStore = usePlayerStore();
-      if (playerStore.monsterCount > 15) {
-        playerStore.floor += 1;
-        playerStore.monsterCount = 1;
-        this.playerGetsNewWeapon();
-        playerStore.chooseRandomBackground();
-      }
-    },
-    checkIfPlayerGetsLoot() {
-      const roll = getRandomNumber(1, 100);
-      if (roll >= 80) {
-        this.playerGetsNewWeapon();
-      }
-    },
-    playerGetsNewWeapon() {
-      const playerStore = usePlayerStore();
-      playerStore.getNewWeapon();
-    },
-    addMoneyToPlayer() {
-      const playerStore = usePlayerStore();
-      playerStore.money += getRandomNumber(
-        playerStore.floor * playerStore.monsterCount,
-        playerStore.floor * playerStore.monsterCount * 2
-      );
-    },
+
     checkGameEnd() {
       const playerStore = usePlayerStore();
       if (playerStore.floor >= 101) {
