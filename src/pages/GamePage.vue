@@ -82,42 +82,18 @@ window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   appWindow.close();
 });
 
+// BATTLE
+
 function battle() {
   if (playerStore.monsterCount < 15) {
-    combat = setInterval(() => {
-      monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
-
-      if (monsterStore.monsterCurrentHP <= 0) {
-        newNormalBattleSetup();
-      }
-    }, 1000);
+    normalBattle();
   }
   if (playerStore.monsterCount === 15) {
-    timerBoss = setInterval(() => {
-      playerStore.bossTimer -= 1;
-      monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
-      if (playerStore.bossTimer <= 0 && monsterStore.monsterCurrentHP > 0) {
-        monsterDied.value = true;
-        clearInterval(timerBoss);
-        playerLoses();
-        afterBossBattleSetup();
-      } else if (
-        playerStore.bossTimer > 0 &&
-        monsterStore.monsterCurrentHP <= 0
-      ) {
-        monsterDied.value = true;
-        clearInterval(timerBoss);
-        playerWins();
-        afterBossBattleSetup();
-      }
-    }, 1000);
+    bossBattle();
   }
 }
 
 function newNormalBattleSetup() {
-  monsterDied.value = true;
-  clearInterval(combat);
-  playerWins();
   setTimeout(() => {
     monsterStore.setUpMonster();
     monsterStore.monsterVisible = true;
@@ -125,6 +101,19 @@ function newNormalBattleSetup() {
     playerStore.outcome = "";
     battle();
     monsterDied.value = false;
+  }, 1000);
+}
+
+function normalBattle() {
+  combat = setInterval(() => {
+    monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
+    if (monsterStore.monsterCurrentHP <= 0) {
+      monsterStore.monsterCurrentHP = 0;
+      clearInterval(combat);
+      playerWins();
+      monsterDied.value = true;
+      newNormalBattleSetup();
+    }
   }, 1000);
 }
 
@@ -139,6 +128,26 @@ function afterBossBattleSetup() {
     monsterDied.value = false;
   }, 1000);
 }
+function bossBattle() {
+  timerBoss = setInterval(() => {
+    playerStore.bossTimer -= 1;
+    monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
+    if (playerStore.bossTimer <= 0 && monsterStore.monsterCurrentHP > 0) {
+      monsterDied.value = true;
+      clearInterval(timerBoss);
+      playerLoses();
+      afterBossBattleSetup();
+    }
+    if (playerStore.bossTimer > 0 && monsterStore.monsterCurrentHP <= 0) {
+      monsterDied.value = true;
+      clearInterval(timerBoss);
+      playerWins();
+      afterBossBattleSetup();
+    }
+  }, 1000);
+}
+
+// BATTLE END
 
 function playerWins() {
   playerStore.playerVisible = true;
