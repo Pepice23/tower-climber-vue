@@ -15,7 +15,7 @@
         <button
           class="btn btn-dark"
           @click="playerAttack"
-          :disabled="monsterDied"
+          :disabled="battleStore.monsterDied"
         >
           <img
             src="/assets/UI/attack-button.png"
@@ -55,13 +55,10 @@ import { appWindow } from "@tauri-apps/api/window";
 import PlayerEquipment from "../components/player/PlayerEquipment.vue";
 import ItemShop from "../components/game/ItemShop.vue";
 
-import { ref } from "vue";
-import { getRandomNumber } from "../helpers/playerHelper.js";
-
-import router from "../router/index.js";
 import CombatScreen from "../components/game/CombatScreen.vue";
 import ItemLog from "../components/player/ItemLog.vue";
 import ArmorShop from "../components/game/ArmorShop.vue";
+import { useBattleStore } from "../stores/battleStore.js";
 
 const monsterStore = useMonsterStore();
 monsterStore.setRandomMonsterAvatar();
@@ -69,11 +66,7 @@ monsterStore.setRandomMonsterAvatar();
 const fileOperationsStore = useFileOperationsStore();
 
 const playerStore = usePlayerStore();
-
-const monsterDied = ref(false);
-
-let combat;
-let timerBoss;
+const battleStore = useBattleStore();
 
 window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   fileOperationsStore.savePlayerToFile();
@@ -82,88 +75,6 @@ window.getCurrent().listen(TauriEvent.WINDOW_CLOSE_REQUESTED, () => {
   appWindow.close();
 });
 
-// BATTLE
-
-function battle() {
-  if (playerStore.monsterCount < 15) {
-    normalBattle();
-  }
-  if (playerStore.monsterCount === 15) {
-    bossBattle();
-  }
-}
-
-function newNormalBattleSetup() {
-  setTimeout(() => {
-    monsterStore.setUpMonster();
-    monsterStore.monsterVisible = true;
-    playerStore.playerVisible = true;
-    playerStore.outcome = "";
-    battle();
-    monsterDied.value = false;
-  }, 1000);
-}
-
-function normalBattle() {
-  combat = setInterval(() => {
-    monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
-    if (monsterStore.monsterCurrentHP <= 0) {
-      monsterStore.monsterCurrentHP = 0;
-      clearInterval(combat);
-      playerWins();
-      monsterDied.value = true;
-      newNormalBattleSetup();
-    }
-  }, 1000);
-}
-
-function afterBossBattleSetup() {
-  setTimeout(() => {
-    monsterStore.setUpMonster();
-    monsterStore.monsterVisible = true;
-    playerStore.playerVisible = true;
-    playerStore.outcome = "";
-    playerStore.bossTimer = 30;
-    battle();
-    monsterDied.value = false;
-  }, 1000);
-}
-function bossBattle() {
-  timerBoss = setInterval(() => {
-    playerStore.bossTimer -= 1;
-    monsterStore.monsterCurrentHP -= playerStore.playerDamagePerSecond;
-    if (playerStore.bossTimer <= 0 && monsterStore.monsterCurrentHP > 0) {
-      monsterDied.value = true;
-      clearInterval(timerBoss);
-      playerLoses();
-      afterBossBattleSetup();
-    }
-    if (playerStore.bossTimer > 0 && monsterStore.monsterCurrentHP <= 0) {
-      monsterDied.value = true;
-      clearInterval(timerBoss);
-      playerWins();
-      afterBossBattleSetup();
-    }
-  }, 1000);
-}
-
-// BATTLE END
-
-function playerWins() {
-  playerStore.playerVisible = true;
-  monsterStore.monsterVisible = false;
-  playerStore.outcome = "You win!";
-  playerStore.monsterCount += 1;
-  monsterStore.totalMonster += 1;
-  playerStore.calculateXP();
-  playerStore.checkLevelUp();
-  checkNextFloor();
-  checkIfPlayerGetsLoot();
-  addMoneyToPlayer();
-  monsterStore.checkTotalMonster();
-  checkGameEnd();
-}
-
 function playerAttack() {
   monsterStore.monsterCurrentHP -= playerStore.playerDamagePerClick;
   if (monsterStore.monsterCurrentHP <= 0) {
@@ -171,54 +82,7 @@ function playerAttack() {
   }
 }
 
-function playerLoses() {
-  playerStore.playerVisible = false;
-  monsterStore.monsterVisible = true;
-  playerStore.outcome = "You lose!";
-  playerStore.monsterCount = 1;
-  monsterStore.checkTotalMonster();
-}
-
-function checkNextFloor() {
-  if (playerStore.monsterCount > 15) {
-    playerStore.floor += 1;
-    playerStore.monsterCount = 1;
-    playerGetsNewWeapon();
-    playerStore.chooseRandomBackground();
-  }
-}
-
-function playerGetsNewWeapon() {
-  playerStore.getNewWeapon();
-}
-
-function checkIfPlayerGetsLoot() {
-  playerGetsNewWeapon();
-}
-
-function addMoneyToPlayer() {
-  playerStore.money += getRandomNumber(
-    playerStore.floor * playerStore.monsterCount,
-    playerStore.floor * playerStore.monsterCount * 2
-  );
-}
-
-function checkGameEnd() {
-  if (playerStore.floor >= 101) {
-    stopBattle();
-    alert("You have reached the end of the game! Congratulations!");
-    alert(`You have reached level ${playerStore.playerLevel}!`);
-    router.push("/");
-  }
-}
-
-battle();
-
-function stopBattle() {
-  monsterDied.value = true;
-  clearInterval(combat);
-  clearInterval(timerBoss);
-}
+battleStore.battle();
 </script>
 
 <style scoped>
