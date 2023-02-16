@@ -8,6 +8,7 @@ export const useMonsterStore = defineStore("monster", {
     monsterMaxHP: 30,
     monsterAvatar: "",
     monsterVisible: true,
+    totalMonster: 1,
   }),
   actions: {
     setRandomMonsterAvatar() {
@@ -17,14 +18,18 @@ export const useMonsterStore = defineStore("monster", {
       )}.jpeg`;
     },
     setMonsterHP() {
-      const playerStore = usePlayerStore();
-      this.monsterMaxHP =
-        Math.pow(playerStore.floor, playerStore.monsterCount) + 100;
+      this.monsterMaxHP = Math.floor(Math.pow(1.12, this.totalMonster));
       this.monsterCurrentHP = this.monsterMaxHP;
     },
     setUpMonster() {
       this.setRandomMonsterAvatar();
       this.setMonsterHP();
+    },
+    checkTotalMonster() {
+      const playerStore = usePlayerStore();
+      if (this.totalMonster > playerStore.floor * 15) {
+        this.totalMonster = playerStore.floor * 15 - playerStore.monsterCount;
+      }
     },
   },
 });

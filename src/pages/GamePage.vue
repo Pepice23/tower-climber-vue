@@ -145,11 +145,13 @@ function playerWins() {
   monsterStore.monsterVisible = false;
   playerStore.outcome = "You win!";
   playerStore.monsterCount += 1;
+  monsterStore.totalMonster += 1;
   playerStore.calculateXP();
   playerStore.checkLevelUp();
   checkNextFloor();
   checkIfPlayerGetsLoot();
   addMoneyToPlayer();
+  monsterStore.checkTotalMonster();
   checkGameEnd();
 }
 
@@ -164,7 +166,8 @@ function playerLoses() {
   playerStore.playerVisible = false;
   monsterStore.monsterVisible = true;
   playerStore.outcome = "You lose!";
-  playerStore.monsterCount = 0;
+  playerStore.monsterCount = 1;
+  monsterStore.checkTotalMonster();
 }
 
 function checkNextFloor() {
@@ -192,7 +195,7 @@ function addMoneyToPlayer() {
 }
 
 function checkGameEnd() {
-  if (playerStore.floor >= 100) {
+  if (playerStore.floor >= 101) {
     stopBattle();
     alert("You have reached the end of the game! Congratulations!");
     alert(`You have reached level ${playerStore.playerLevel}!`);

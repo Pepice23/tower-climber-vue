@@ -9,12 +9,14 @@ import {
 import { usePlayerStore } from "./playerStore";
 import { useEquipmentStore } from "./equipmentStore";
 import { useArmorStore } from "./armorStore.js";
+import { useMonsterStore } from "./monsterStore.js";
 
 export const useFileOperationsStore = defineStore("fileOperations", {
   state: () => ({}),
   actions: {
     async savePlayerToFile() {
       const playerStore = usePlayerStore();
+      const monsterStore = useMonsterStore();
       try {
         await writeFile(
           "tower-climber/playerSave.json",
@@ -28,6 +30,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
               currentXP: playerStore.currentXP,
               nextLevelXP: playerStore.nextLevelXP,
               floorNumber: playerStore.floor,
+              totalMonster: monsterStore.totalMonster,
             },
           }),
           {
@@ -45,6 +48,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
           dir: BaseDirectory.Document,
         });
         const playerDataJson = JSON.parse(playerData);
+        const monsterStore = useMonsterStore();
         playerStore.avatar = playerDataJson.character.avatar;
         playerStore.playerLevel = playerDataJson.character.level;
         playerStore.money = playerDataJson.character.money;
@@ -55,6 +59,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
         playerStore.currentXP = playerDataJson.character.currentXP;
         playerStore.nextLevelXP = playerDataJson.character.nextLevelXP;
         playerStore.floor = playerDataJson.character.floorNumber;
+        monsterStore.totalMonster = playerDataJson.character.totalMonster;
       } catch (e) {
         console.error(e);
       }
