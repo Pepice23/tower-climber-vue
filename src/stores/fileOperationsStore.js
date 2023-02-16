@@ -30,7 +30,7 @@ export const useFileOperationsStore = defineStore("fileOperations", {
               currentXP: playerStore.currentXP,
               nextLevelXP: playerStore.nextLevelXP,
               floorNumber: playerStore.floor,
-              totalMonster: monsterStore.totalMonster,
+              totalMonster: (playerStore.floor - 1) * 15 + 1,
             },
           }),
           {
