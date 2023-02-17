@@ -115,9 +115,6 @@ export const usePlayerStore = defineStore("player", () => {
       monsterCount.value = 1;
       getNewWeapon();
       chooseRandomBackground();
-      if (floor.value % 10 === 0) {
-        monsterStore.baseMonsterHP -= 0.01;
-      }
     }
   }
   function checkIfPlayerGetsLoot() {
