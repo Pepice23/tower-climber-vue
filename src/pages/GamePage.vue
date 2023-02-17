@@ -24,6 +24,26 @@
           />
         </button>
       </div>
+      <div class="col m-2">
+        <button
+          class="btn btn-secondary m-2"
+          @click="battleStore.changeTimer(1000)"
+        >
+          1x
+        </button>
+        <button
+          class="btn btn-secondary m-2"
+          @click="battleStore.changeTimer(500)"
+        >
+          2x
+        </button>
+        <button
+          class="btn btn-secondary m-2"
+          @click="battleStore.changeTimer(250)"
+        >
+          4x
+        </button>
+      </div>
     </div>
   </div>
   <div class="row">

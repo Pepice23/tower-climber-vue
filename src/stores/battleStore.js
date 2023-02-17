@@ -107,9 +107,13 @@ export const useBattleStore = defineStore("battle", () => {
       router.push("/");
     }
   }
+  function changeTimer(time) {
+    battleTimer.value = time;
+  }
 
   return {
     battle,
     monsterDied,
+    changeTimer,
   };
 });
