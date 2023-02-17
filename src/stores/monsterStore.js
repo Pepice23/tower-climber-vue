@@ -9,7 +9,7 @@ export const useMonsterStore = defineStore("monster", () => {
   const monsterAvatar = ref("");
   const monsterVisible = ref(true);
   const totalMonster = ref(1);
-  const baseMonsterHP = ref(1.12);
+  const baseMonsterHP = ref(1.02);
   function setRandomMonsterAvatar() {
     monsterAvatar.value = `/assets/enemies/enemy${getRandomNumber(1, 25)}.jpeg`;
   }
