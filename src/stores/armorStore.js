@@ -13,7 +13,7 @@ import {
 } from "../helpers/armorHelper.js";
 
 export const useArmorStore = defineStore("armor", () => {
-  const armors = ref([
+  let armors = ref([
     fresirineArmor,
     ceymaniteArmor,
     chintoidArmor,
