@@ -1,38 +1,44 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
-import { getRandomNumber } from "../helpers/playerHelper";
+import { getRandomNumber } from "../helpers/playerHelper.js";
 import { usePlayerStore } from "./playerStore.js";
 
-export const useMonsterStore = defineStore("monster", {
-  state: () => ({
-    monsterCurrentHP: 30,
-    monsterMaxHP: 30,
-    monsterAvatar: "",
-    monsterVisible: true,
-    totalMonster: 1,
-    baseMonsterHP: 1.12,
-  }),
-  actions: {
-    setRandomMonsterAvatar() {
-      this.monsterAvatar = `/assets/enemies/enemy${getRandomNumber(
-        1,
-        25
-      )}.jpeg`;
-    },
-    setMonsterHP() {
-      this.monsterMaxHP = Math.floor(
-        Math.pow(this.baseMonsterHP, this.totalMonster)
-      );
-      this.monsterCurrentHP = this.monsterMaxHP;
-    },
-    setUpMonster() {
-      this.setRandomMonsterAvatar();
-      this.setMonsterHP();
-    },
-    checkTotalMonster() {
-      const playerStore = usePlayerStore();
-      if (this.totalMonster > playerStore.floor * 15) {
-        this.totalMonster = playerStore.floor * 15 - playerStore.monsterCount;
-      }
-    },
-  },
+export const useMonsterStore = defineStore("monster", () => {
+  const monsterCurrentHP = ref(30);
+  const monsterMaxHP = ref(30);
+  const monsterAvatar = ref("");
+  const monsterVisible = ref(true);
+  const totalMonster = ref(1);
+  const baseMonsterHP = ref(1.12);
+  function setRandomMonsterAvatar() {
+    monsterAvatar.value = `/assets/enemies/enemy${getRandomNumber(1, 25)}.jpeg`;
+  }
+  function setMonsterHP() {
+    monsterMaxHP.value = Math.floor(
+      Math.pow(baseMonsterHP.value, totalMonster.value)
+    );
+    monsterCurrentHP.value = monsterMaxHP.value;
+  }
+  function setUpMonster() {
+    setRandomMonsterAvatar();
+    setMonsterHP();
+  }
+  function checkTotalMonster() {
+    const playerStore = usePlayerStore();
+    if (totalMonster.value > playerStore.floor * 15) {
+      totalMonster.value = playerStore.floor * 15 - playerStore.monsterCount;
+    }
+  }
+
+  return {
+    monsterCurrentHP,
+    monsterMaxHP,
+    monsterAvatar,
+    monsterVisible,
+    totalMonster,
+    baseMonsterHP,
+    setRandomMonsterAvatar,
+    setUpMonster,
+    checkTotalMonster,
+  };
 });
