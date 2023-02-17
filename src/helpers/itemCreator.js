@@ -21,8 +21,8 @@ export function generateRandomItem(level, id) {
   const item = {};
   const rarity = getRandomRarity();
   const slot = itemSlots.WEAPON;
-  const clickDamage = generateRandomStat(rarity.rarityNumber, level);
-  const perSecDamage = clickDamage * 2;
+  const clickDamage = generateRandomStat(level);
+  const perSecDamage = generateRandomStat(level);
   item.equipmentName = `${rarity.rarityName} ${slot.slotName}`;
   item.equipmentLevel = level;
   item.equipmentPerClickDamage = clickDamage;
@@ -57,8 +57,37 @@ export function getRandomRarity() {
   }
 }
 
-function generateRandomStat(quality, level) {
-  return Math.floor(Math.pow(3, level) * quality);
+function generateRandomStat(level) {
+  if (level <= 10) {
+    return Math.floor(Math.pow(2.1, level));
+  }
+  if (level >= 11 && level <= 20) {
+    return Math.floor(Math.pow(2.07, level));
+  }
+  if (level >= 21 && level <= 30) {
+    return Math.floor(Math.pow(1.61, level));
+  }
+  if (level >= 31 && level <= 40) {
+    return Math.floor(Math.pow(1.49, level));
+  }
+  if (level >= 41 && level <= 50) {
+    return Math.floor(Math.pow(1.44, level));
+  }
+  if (level >= 51 && level <= 60) {
+    return Math.floor(Math.pow(1.42, level));
+  }
+  if (level >= 61 && level <= 70) {
+    return Math.floor(Math.pow(1.4, level));
+  }
+  if (level >= 71 && level <= 80) {
+    return Math.floor(Math.pow(1.39, level));
+  }
+  if (level >= 81 && level <= 90) {
+    return Math.floor(Math.pow(1.38, level));
+  }
+  if (level >= 91) {
+    return Math.floor(Math.pow(1.34, level));
+  }
 }
 
 function diceRoll() {
