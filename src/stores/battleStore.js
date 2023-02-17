@@ -6,6 +6,7 @@ import router from "../router/index.js";
 
 export const useBattleStore = defineStore("battle", () => {
   const monsterDied = ref(false);
+  const battleTimer = ref(1000);
 
   function battle() {
     const playerStore = usePlayerStore();
@@ -31,7 +32,7 @@ export const useBattleStore = defineStore("battle", () => {
         playerStore.bossTimer = 30;
       }
       monsterDied.value = false;
-    }, 1000);
+    }, battleTimer.value);
   }
 
   function normalBattle() {
@@ -47,7 +48,7 @@ export const useBattleStore = defineStore("battle", () => {
         monsterDied.value = true;
         newBattleSetup();
       }
-    }, 1000);
+    }, battleTimer.value);
   }
 
   function bossBattle() {
@@ -68,7 +69,7 @@ export const useBattleStore = defineStore("battle", () => {
         playerWins();
         newBattleSetup();
       }
-    }, 1000);
+    }, battleTimer.value);
   }
   function playerWins() {
     const playerStore = usePlayerStore();
