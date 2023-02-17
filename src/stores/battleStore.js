@@ -84,7 +84,6 @@ export const useBattleStore = defineStore("battle", () => {
     playerStore.checkNextFloor();
     playerStore.checkIfPlayerGetsLoot();
     playerStore.addMoney();
-    monsterStore.checkTotalMonster();
     checkGameEnd();
   }
 
