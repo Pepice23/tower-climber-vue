@@ -62,32 +62,31 @@ function generateRandomStat(level, quality) {
     return Math.floor(Math.pow(1.65, level) * quality);
   }
   if (level >= 11 && level <= 20) {
-    return Math.floor(Math.pow(1.35, level) * quality);
-  }
-  if (level >= 21 && level <= 30) {
     return Math.floor(Math.pow(1.32, level) * quality);
   }
-  if (level >= 31 && level <= 40) {
+  if (level >= 21 && level <= 30) {
     return Math.floor(Math.pow(1.3, level) * quality);
   }
+  if (level >= 31 && level <= 40) {
+    return Math.floor(Math.pow(1.29, level) * quality);
+  }
   if (level >= 41 && level <= 50) {
-    return Math.floor(Math.pow(1.25, level) * quality);
+    return Math.floor(Math.pow(1.29, level) * quality);
   }
   if (level >= 51 && level <= 60) {
-    return Math.floor(Math.pow(1.2, level) * quality);
+    return Math.floor(Math.pow(1.31, level) * quality);
   }
   if (level >= 61 && level <= 70) {
-    return Math.floor(Math.pow(1.15, level) * quality);
+    return Math.floor(Math.pow(1.31, level) * quality);
   }
   if (level >= 71 && level <= 80) {
-    return Math.floor(Math.pow(1.1, level) * quality);
+    return Math.floor(Math.pow(1.31, level) * quality);
   }
   if (level >= 81 && level <= 90) {
-    return Math.floor(Math.pow(1.05, level) * quality);
+    return Math.floor(Math.pow(1.31, level) * quality);
   }
   if (level >= 91) {
-    return Math.floor(Math.pow(1.01, level) * quality);
-    return Math.floor(Math.pow(1.01, level) * quality);
+    return Math.floor(Math.pow(1.31, level) * quality);
   }
 }
 
