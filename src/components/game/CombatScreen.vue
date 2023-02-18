@@ -12,7 +12,6 @@
         <h3 class="text-white">Time remaining:</h3>
         <BossTimer />
       </div>
-      <h3>Total Monster Count: {{ monsterStore.totalMonster }}</h3>
     </div>
   </div>
 </template>
@@ -22,10 +21,8 @@ import CharacterCard from "../player/CharacterCard.vue";
 import MonsterCard from "./MonsterCard.vue";
 import { usePlayerStore } from "../../stores/playerStore";
 import BossTimer from "../player/BossTimer.vue";
-import { useMonsterStore } from "../../stores/monsterStore.js";
 
 const playerStore = usePlayerStore();
-const monsterStore = useMonsterStore();
 </script>
 
 <style scoped></style>

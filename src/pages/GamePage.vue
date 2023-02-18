@@ -1,4 +1,5 @@
 <template>
+  <DeveloperConsole />
   <div
     class="row m-3"
     style="
@@ -22,26 +23,6 @@
             alt="attack button"
             class="attack-button"
           />
-        </button>
-      </div>
-      <div class="col m-2">
-        <button
-          class="btn btn-secondary m-2"
-          @click="battleStore.changeTimer(1000)"
-        >
-          1x
-        </button>
-        <button
-          class="btn btn-secondary m-2"
-          @click="battleStore.changeTimer(500)"
-        >
-          2x
-        </button>
-        <button
-          class="btn btn-secondary m-2"
-          @click="battleStore.changeTimer(250)"
-        >
-          4x
         </button>
       </div>
     </div>
@@ -79,6 +60,7 @@ import CombatScreen from "../components/game/CombatScreen.vue";
 import ItemLog from "../components/player/ItemLog.vue";
 import ArmorShop from "../components/game/ArmorShop.vue";
 import { useBattleStore } from "../stores/battleStore.js";
+import DeveloperConsole from "../components/developer/DeveloperConsole.vue";
 
 const monsterStore = useMonsterStore();
 monsterStore.setRandomMonsterAvatar();
