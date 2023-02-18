@@ -21,8 +21,8 @@ export function generateRandomItem(level, id) {
   const item = {};
   const rarity = getRandomRarity();
   const slot = itemSlots.WEAPON;
-  const clickDamage = generateRandomStat(level);
-  const perSecDamage = generateRandomStat(level);
+  const clickDamage = generateRandomStat(level, rarity.rarityNumber);
+  const perSecDamage = generateRandomStat(level, rarity.rarityNumber);
   item.equipmentName = `${rarity.rarityName} ${slot.slotName}`;
   item.equipmentLevel = level;
   item.equipmentPerClickDamage = clickDamage;
@@ -57,36 +57,37 @@ export function getRandomRarity() {
   }
 }
 
-function generateRandomStat(level) {
+function generateRandomStat(level, quality) {
   if (level <= 10) {
-    return Math.floor(Math.pow(2.1, level));
+    return Math.floor(Math.pow(1.65, level) * quality);
   }
   if (level >= 11 && level <= 20) {
-    return Math.floor(Math.pow(2.07, level));
+    return Math.floor(Math.pow(1.35, level) * quality);
   }
   if (level >= 21 && level <= 30) {
-    return Math.floor(Math.pow(1.61, level));
+    return Math.floor(Math.pow(1.32, level) * quality);
   }
   if (level >= 31 && level <= 40) {
-    return Math.floor(Math.pow(1.49, level));
+    return Math.floor(Math.pow(1.3, level) * quality);
   }
   if (level >= 41 && level <= 50) {
-    return Math.floor(Math.pow(1.44, level));
+    return Math.floor(Math.pow(1.25, level) * quality);
   }
   if (level >= 51 && level <= 60) {
-    return Math.floor(Math.pow(1.42, level));
+    return Math.floor(Math.pow(1.2, level) * quality);
   }
   if (level >= 61 && level <= 70) {
-    return Math.floor(Math.pow(1.4, level));
+    return Math.floor(Math.pow(1.15, level) * quality);
   }
   if (level >= 71 && level <= 80) {
-    return Math.floor(Math.pow(1.39, level));
+    return Math.floor(Math.pow(1.1, level) * quality);
   }
   if (level >= 81 && level <= 90) {
-    return Math.floor(Math.pow(1.38, level));
+    return Math.floor(Math.pow(1.05, level) * quality);
   }
   if (level >= 91) {
-    return Math.floor(Math.pow(1.34, level));
+    return Math.floor(Math.pow(1.01, level) * quality);
+    return Math.floor(Math.pow(1.01, level) * quality);
   }
 }
 
