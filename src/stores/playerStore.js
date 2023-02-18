@@ -7,8 +7,8 @@ import { useMonsterStore } from "./monsterStore.js";
 
 export const usePlayerStore = defineStore("player", () => {
   const playerVisible = ref(true);
-  const playerDamagePerClick = ref(10);
-  const playerDamagePerSecond = ref(10);
+  const playerDamagePerClick = ref(1);
+  const playerDamagePerSecond = ref(1);
   const playerLevel = ref(1);
   const money = ref(2000);
   const floor = ref(1);
@@ -30,10 +30,10 @@ export const usePlayerStore = defineStore("player", () => {
       playerDamagePerSecond.value =
         equipmentStore.weapon.equipmentPerSecDamage *
           equipmentStore.armor.dmgMultiplier +
-        playerLevel.value * 5;
+        playerLevel.value * 2;
     } else {
       playerDamagePerSecond.value =
-        equipmentStore.weapon.equipmentPerSecDamage + playerLevel.value * 5;
+        equipmentStore.weapon.equipmentPerSecDamage + playerLevel.value * 2;
     }
   }
 
@@ -43,10 +43,10 @@ export const usePlayerStore = defineStore("player", () => {
       playerDamagePerClick.value =
         equipmentStore.weapon.equipmentPerClickDamage *
           equipmentStore.armor.dmgMultiplier +
-        playerLevel.value * 5;
+        playerLevel.value * 2;
     } else {
       playerDamagePerClick.value =
-        equipmentStore.weapon.equipmentPerClickDamage + playerLevel.value * 5;
+        equipmentStore.weapon.equipmentPerClickDamage + playerLevel.value * 2;
     }
   }
 
