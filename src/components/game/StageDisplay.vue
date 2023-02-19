@@ -1,49 +1,33 @@
 <template>
   <div class="row m-2">
-    <div class="col">
-      <div class="progress position-relative" style="height: 30px">
-        <div
-          class="progress-bar"
-          role="progressbar"
-          :style="{ width: store.floor + '%' }"
-          aria-valuenow="{$floor}"
-          aria-valuemin="1"
-          aria-valuemax="100"
-        ></div>
-        <h5 class="justify-content-center d-flex position-absolute w-100">
-          Floor: {{ store.floor }}/100
-        </h5>
-      </div>
-    </div>
-    <div class="col">
-      <div class="progress position-relative" style="height: 30px">
-        <div
-          class="progress-bar"
-          role="progressbar"
-          :style="{ width: (store.monsterCount / 15) * 100 + '%' }"
-          aria-valuemin="1"
-          aria-valuemax="100"
-        ></div>
-        <h5
-          class="justify-content-center d-flex position-absolute w-100"
-          v-if="store.monsterCount < 15"
-        >
-          Monster: {{ store.monsterCount }}/15
-        </h5>
-        <h5
-          class="justify-content-center d-flex position-absolute w-100"
-          v-if="store.monsterCount === 15"
-        >
-          Boss of the {{ store.floor }}th floor
-        </h5>
-      </div>
-    </div>
+    <StageProgress
+      :max="100"
+      :current="playerStore.floor"
+      name="Floor"
+      :width="playerStore.floor"
+    />
+    <StageProgress
+      :max="15"
+      :current="playerStore.monsterCount"
+      name="Monster"
+      :width="(playerStore.monsterCount / 15) * 100"
+      v-if="playerStore.monsterCount < 15"
+    />
+    <StageProgress
+      :max="15"
+      :current="playerStore.monsterCount"
+      :boss="true"
+      :width="(playerStore.monsterCount / 15) * 100"
+      :bossProgress="`Boss of the ${playerStore.floor}th floor`"
+      v-if="playerStore.monsterCount === 15"
+    />
   </div>
 </template>
 
 <script setup>
 import { usePlayerStore } from "../../stores/playerStore";
-const store = usePlayerStore();
+import StageProgress from "../StageProgress.vue";
+const playerStore = usePlayerStore();
 </script>
 
 <style scoped></style>
