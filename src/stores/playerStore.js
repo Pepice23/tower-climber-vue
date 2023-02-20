@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { useEquipmentStore } from "./equipmentStore.js";
 import { getRandomNumber } from "../helpers/playerHelper.js";
 import { generateRandomItem } from "../helpers/itemCreator.js";
-import { useMonsterStore } from "./monsterStore.js";
 
 export const usePlayerStore = defineStore("player", () => {
   const playerVisible = ref(true);
@@ -23,6 +22,7 @@ export const usePlayerStore = defineStore("player", () => {
   const bossTimer = ref(30);
   const bossTimerMax = ref(30);
   const itemLog = ref("");
+  const lootChance = ref(80);
 
   function totalDamagePerSec() {
     const equipmentStore = useEquipmentStore();
@@ -109,7 +109,6 @@ export const usePlayerStore = defineStore("player", () => {
   }
 
   function checkNextFloor() {
-    const monsterStore = useMonsterStore();
     if (monsterCount.value > 15) {
       floor.value += 1;
       monsterCount.value = 1;
@@ -119,7 +118,7 @@ export const usePlayerStore = defineStore("player", () => {
   }
   function checkIfPlayerGetsLoot() {
     const roll = getRandomNumber(1, 100);
-    if (roll >= 80) {
+    if (roll >= lootChance) {
       getNewWeapon();
     }
   }
