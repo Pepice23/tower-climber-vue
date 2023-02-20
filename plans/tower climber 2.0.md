@@ -38,4 +38,13 @@
 - Több fajta ellenség
 
 
-[//]: # "almost a hero"
+## Normál upgradek
+1. Loot chance upgrade (5% 10 szintre)
+2. Pet (+20% dmg 4 szintre)
+
+## Prestige upgradek
+1. % os időgyorsítás
+
+## Prestige szerzés
+Végez a játékkal kap egy prestige pointot, amivel upgradeelhet
+
