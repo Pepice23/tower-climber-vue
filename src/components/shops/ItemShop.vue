@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { usePlayerStore } from "../../stores/playerStore";
+import { usePlayerStore } from "../../stores/playerStore.js";
 import { numberFormatter } from "../../helpers/playerHelper.js";
 
 const playerStore = usePlayerStore();

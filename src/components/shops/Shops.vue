@@ -8,9 +8,9 @@
 </template>
 
 <script setup>
-import ItemShop from "../game/ItemShop.vue";
-import ArmorShop from "../game/ArmorShop.vue";
-import UpgradeShop from "../game/UpgradeShop.vue";
+import ItemShop from "./ItemShop.vue";
+import ArmorShop from "./ArmorShop.vue";
+import UpgradeShop from "./UpgradeShop.vue";
 </script>
 
 <style scoped></style>
