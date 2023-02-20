@@ -47,7 +47,7 @@
             :disabled="
               totalPrice > playerStore.money ||
               equipmentStore.armor === armor ||
-              equipmentStore.armor.dmgMultiplier >= armor.dmgMultiplier
+              equipmentStore.armor.dmgMultiplier >= props.armor.dmgMultiplier
             "
           >
             Craft Armor
