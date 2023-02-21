@@ -11,6 +11,7 @@ import {
 import { useMonsterStore } from "./monsterStore.js";
 import { useEquipmentStore } from "./equipmentStore.js";
 import { useArmorStore } from "./armorStore.js";
+import { useUpgradeStore } from "./upgradeStore.js";
 
 export const useFileOperationsStore = defineStore("fileOperations", () => {
   async function savePlayerToFile() {
@@ -66,6 +67,7 @@ export const useFileOperationsStore = defineStore("fileOperations", () => {
   async function saveEquipmentToFile() {
     const equipmentStore = useEquipmentStore();
     const armorStore = useArmorStore();
+    const upgradeStore = useUpgradeStore();
     try {
       await writeFile(
         "tower-climber/equipmentSave.json",
@@ -74,6 +76,7 @@ export const useFileOperationsStore = defineStore("fileOperations", () => {
             weapon: equipmentStore.weapon,
             armor: equipmentStore.armor,
             availableArmors: armorStore.armors,
+            availableUpgrades: upgradeStore.normalUpgrades,
           },
         }),
         {
@@ -88,6 +91,7 @@ export const useFileOperationsStore = defineStore("fileOperations", () => {
   async function loadEquipmentFromFile() {
     const equipmentStore = useEquipmentStore();
     const armorStore = useArmorStore();
+    const upgradeStore = useUpgradeStore();
     try {
       const equipment = await readTextFile("tower-climber/equipmentSave.json", {
         dir: BaseDirectory.Document,
@@ -96,6 +100,8 @@ export const useFileOperationsStore = defineStore("fileOperations", () => {
       equipmentStore.weapon = equipmentJson.equipment.weapon;
       equipmentStore.armor = equipmentJson.equipment.armor;
       armorStore.armors.value = equipmentJson.equipment.availableArmors;
+      upgradeStore.normalUpgrades.value =
+        equipmentJson.equipment.availableUpgrades;
     } catch (e) {
       console.error(e);
     }
