@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useEquipmentStore } from "./equipmentStore.js";
 import { getRandomNumber } from "../helpers/playerHelper.js";
 import { generateRandomItem } from "../helpers/itemCreator.js";
+import { useUpgradeStore } from "./upgradeStore.js";
 
 export const usePlayerStore = defineStore("player", () => {
   const playerVisible = ref(true);
@@ -26,27 +27,38 @@ export const usePlayerStore = defineStore("player", () => {
 
   function totalDamagePerSec() {
     const equipmentStore = useEquipmentStore();
+    const upgradeStore = useUpgradeStore();
+
+    playerDamagePerSecond.value =
+      equipmentStore.weapon.equipmentPerSecDamage + playerLevel.value * 2;
+
     if (equipmentStore.armor.dmgMultiplier > 0) {
       playerDamagePerSecond.value =
-        equipmentStore.weapon.equipmentPerSecDamage *
-          equipmentStore.armor.dmgMultiplier +
-        playerLevel.value * 2;
-    } else {
+        playerDamagePerSecond.value * equipmentStore.armor.dmgMultiplier;
+    }
+
+    if (upgradeStore.alexanderThePet.dmgMultiplier > 0) {
       playerDamagePerSecond.value =
-        equipmentStore.weapon.equipmentPerSecDamage + playerLevel.value * 2;
+        playerDamagePerSecond.value *
+        upgradeStore.alexanderThePet.dmgMultiplier;
     }
   }
 
   function totalDamagePerClick() {
     const equipmentStore = useEquipmentStore();
+    const upgradeStore = useUpgradeStore();
+
+    playerDamagePerClick.value =
+      equipmentStore.weapon.equipmentPerClickDamage + playerLevel.value * 2;
+
     if (equipmentStore.armor.dmgMultiplier > 0) {
       playerDamagePerClick.value =
-        equipmentStore.weapon.equipmentPerClickDamage *
-          equipmentStore.armor.dmgMultiplier +
-        playerLevel.value * 2;
-    } else {
+        playerDamagePerClick.value * equipmentStore.armor.dmgMultiplier;
+    }
+
+    if (upgradeStore.alexanderThePet.dmgMultiplier > 0) {
       playerDamagePerClick.value =
-        equipmentStore.weapon.equipmentPerClickDamage + playerLevel.value * 2;
+        playerDamagePerClick.value * upgradeStore.alexanderThePet.dmgMultiplier;
     }
   }
 
