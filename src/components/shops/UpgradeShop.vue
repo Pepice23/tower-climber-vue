@@ -1,7 +1,7 @@
 <template>
   <h1>Upgrade Shop</h1>
   <div class="col" v-for="upgrade in upgradeStore.normalUpgrades">
-    <UpgradeShopCard :upgrade="upgrade.value" class="m-2" />
+    <UpgradeShopCard :upgrade="upgrade" class="m-2" />
   </div>
 </template>
 

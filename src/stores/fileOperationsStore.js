@@ -100,8 +100,7 @@ export const useFileOperationsStore = defineStore("fileOperations", () => {
       equipmentStore.weapon = equipmentJson.equipment.weapon;
       equipmentStore.armor = equipmentJson.equipment.armor;
       armorStore.armors.value = equipmentJson.equipment.availableArmors;
-      upgradeStore.normalUpgrades.value =
-        equipmentJson.equipment.availableUpgrades;
+      upgradeStore.normalUpgrades = equipmentJson.equipment.availableUpgrades;
     } catch (e) {
       console.error(e);
     }
