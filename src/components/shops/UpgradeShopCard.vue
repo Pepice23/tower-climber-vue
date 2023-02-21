@@ -14,10 +14,14 @@
           <h3 v-if="props.upgrade.lootPercent">
             + {{ props.upgrade.lootPercent }} % Loot Chance
           </h3>
-          <h3 v-if="props.upgrade.dmgPercent">
-            + {{ props.upgrade.dmgPercent }} % Damage
+          <h3 v-if="props.upgrade.dmgMultiplier">
+            + {{ props.upgrade.dmgMultiplier }} x Damage
           </h3>
-          <button class="btn btn-primary" @click="buyUpgrade(upgrade)">
+          <button
+            class="btn btn-primary"
+            @click="buyUpgrade(upgrade)"
+            :disabled="playerStore.money < props.upgrade.cost"
+          >
             Buy Upgrade
           </button>
         </div>
@@ -43,10 +47,12 @@ const props = defineProps({
 function buyUpgrade(upgrade) {
   if (upgrade === upgradeStore.lootChanceUpgrade) {
     upgradeStore.upgradeLootChance();
-    console.log(playerStore.lootChance);
-    if (upgrade.currentLevel === upgrade.maxLevel) {
-      upgradeStore.filterUpgrade(upgrade);
-    }
+  }
+  if (upgrade === upgradeStore.alexanderThePet) {
+    upgradeStore.upgradeAlexanderThePet();
+  }
+  if (upgrade.currentLevel === upgrade.maxLevel) {
+    upgradeStore.filterUpgrade(upgrade);
   }
 }
 </script>
