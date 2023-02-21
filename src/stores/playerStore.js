@@ -22,7 +22,7 @@ export const usePlayerStore = defineStore("player", () => {
   const bossTimer = ref(30);
   const bossTimerMax = ref(30);
   const itemLog = ref("");
-  const lootChance = ref(80);
+  const lootChance = ref(20);
 
   function totalDamagePerSec() {
     const equipmentStore = useEquipmentStore();
@@ -118,7 +118,7 @@ export const usePlayerStore = defineStore("player", () => {
   }
   function checkIfPlayerGetsLoot() {
     const roll = getRandomNumber(1, 100);
-    if (roll >= lootChance) {
+    if (roll <= lootChance.value) {
       getNewWeapon();
     }
   }
@@ -141,6 +141,7 @@ export const usePlayerStore = defineStore("player", () => {
     bossTimer,
     bossTimerMax,
     itemLog,
+    lootChance,
     totalDamagePerSec,
     totalDamagePerClick,
     addMoney,
