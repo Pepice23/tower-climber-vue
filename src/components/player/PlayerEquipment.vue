@@ -15,7 +15,10 @@
         />
       </div>
       <div class="row">
-        <ArmorCard />
+        <EquippedCard :equipment="equipmentStore.armor" />
+      </div>
+      <div class="row">
+        <EquippedCard :equipment="upgradeStore.alexanderThePet" />
       </div>
     </div>
   </div>
@@ -24,8 +27,10 @@
 <script setup>
 import EquipmentCard from "./EquipmentCard.vue";
 import { useEquipmentStore } from "../../stores/equipmentStore";
-import ArmorCard from "./ArmorCard.vue";
+import { useUpgradeStore } from "../../stores/upgradeStore";
+import EquippedCard from "./EquippedCard.vue";
 const equipmentStore = useEquipmentStore();
+const upgradeStore = useUpgradeStore();
 </script>
 
 <style scoped>
