@@ -3,22 +3,26 @@
     <div class="row">
       <div class="col">
         <img
-          :src="equipmentStore.armor.imagePath"
-          :alt="equipmentStore.armor.name"
+          :src="props.equipment.imagePath"
+          :alt="props.equipment.name"
           class="picture-size m-2"
         />
       </div>
       <div class="col">
-        <h3>{{ equipmentStore.armor.name }}</h3>
-        <h3>Damage Multiplier:{{ equipmentStore.armor.dmgMultiplier }}</h3>
+        <h3>{{ props.equipment.name }}</h3>
+        <h3>Damage Multiplier:{{ props.equipment.dmgMultiplier }}</h3>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useEquipmentStore } from "../../stores/equipmentStore.js";
-const equipmentStore = useEquipmentStore();
+const props = defineProps({
+  equipment: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 
 <style scoped>
