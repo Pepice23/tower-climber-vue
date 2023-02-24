@@ -39,8 +39,8 @@ export const useUpgradeStore = defineStore("upgrade", () => {
 
   return {
     normalUpgrades,
-    lootChanceUpgrade,
     alexanderThePet,
+    lootChanceUpgrade,
     upgradeLootChance,
     upgradeAlexanderThePet,
     filterUpgrade,
